@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/person-quiz.html" },
+    { "source": "/person", "destination": "/person-quiz.html" },
+    { "source": "/person-landing", "destination": "/person-landing.html" },
+    { "source": "/entrepreneur", "destination": "/entrepreneur-quiz.html" },
+    { "source": "/entrepreneur-landing", "destination": "/entrepreneur-landing.html" }
+  ]
+}
