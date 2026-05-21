@@ -879,7 +879,7 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;font-siz
       </ul>
       <div class="offer-timer">⏰ Предложение действует: <span class="timer-val" id="timer">23:59:47</span></div>
       <div class="offer-price"><span class="offer-old">99$</span><span class="offer-new">15$</span></div>
-      <a href="https://app.lava.top/products/f711a208-9c3a-4c16-b4ba-b44160f94571" class="offer-cta" target="_blank" rel="noopener">Забрать контент‑план за 15$ →</a>
+      <a href="https://app.lava.top/products/f711a208-9c3a-4c16-b4ba-b44160f94571" class="offer-cta" target="_blank" rel="noopener" onclick="track('cta')">Забрать контент‑план за 15$ →</a>
     </div>
     <span class="ty-skip" id="ty-skip" onclick="showDownsell()">Нет, спасибо — подожду звонка</span>
     <div id="downsell-block" style="display:none;margin-top:18px">
@@ -887,7 +887,7 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;font-siz
         <div class="downsell-tag">Подожди!</div>
         <p class="downsell-h">Забери бесплатно:</p>
         <p class="downsell-t">Полезная информация и фишки при создании ИИ‑контента для бизнеса</p>
-        <a href="https://t.me/hugency_academy" class="downsell-cta" target="_blank" rel="noopener">Забрать бесплатно в Telegram →</a>
+        <a href="https://t.me/hugency_academy" class="downsell-cta" target="_blank" rel="noopener" onclick="track('downsell')">Забрать бесплатно в Telegram →</a>
         <span class="ty-skip2" onclick="showFinalSkip()">Нет, не нужно</span>
       </div>
     </div>
@@ -958,6 +958,7 @@ function startQuiz(){
   showScr('scr-quiz');
   showStep('s1');
   updProg(1,14);
+  track('start');
 }
 
 function goNiche(){
@@ -1004,6 +1005,7 @@ function goScore(){
   hist.push(currentStep());
   showStep('s-score');
   document.getElementById('pfill').style.width='100%';
+  track('score');
   const d=NID?ND[NID]:null;
   const targetPct=d?d.pct:80;
   const sl=document.getElementById('score-loading');
@@ -1037,6 +1039,7 @@ function goForm(){
   fillForm();
   updProg(14,14);
   updateBack();
+  track('form');
 }
 
 function goBack(){
@@ -1063,11 +1066,15 @@ function showScr(id){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+function track(event){
+  try{navigator.sendBeacon('/api/track',JSON.stringify({quiz:'entrepreneur-landing',event}));}catch(e){}
+}
 function showStep(id){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
   const el=document.getElementById(id);
   if(el) el.classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
+  if(id&&!id.startsWith('s-')) track(id); else if(id==='s-form') track('form');
 }
 
 function updProg(n,total){
@@ -1313,7 +1320,8 @@ function submitAndScore(){
   const contact=document.getElementById('f-contact').value.trim();
   const niche=NID?NICHES.find(x=>x.id===NID):null;
   const label=nicheText||(niche?niche.n:'');
-  fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,contact,niche:label,type:'entrepreneur',answers:A,multi:MA})}).catch(()=>{});
+  fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,contact,niche:label,type:'entrepreneur',source:'landing',answers:A,multi:MA})}).catch(()=>{});
+  track('lead');
   const t=document.getElementById('ty-niche');
   if(t) t.textContent=label;
   goScore();

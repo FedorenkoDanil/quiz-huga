@@ -26,7 +26,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST')   return res.status(405).end();
 
-  const { name, contact, type, niche, answers = {}, multi = {} } = req.body || {};
+  const { name, contact, type, source, niche, answers = {}, multi = {} } = req.body || {};
   if (!name || !contact) return res.status(400).json({ error: 'name and contact required' });
 
   const token = process.env.AMO_TOKEN;
@@ -59,13 +59,22 @@ module.exports = async function handler(req, res) {
     const nicheLabel = NICHE_LABELS[niche || answers.niche] || niche || '—';
     const leadName   = `Квиз — ${quizType} — ${name}`;
 
+    const TAG_MAP = {
+      'person-quiz':          ['Диагностика', 'обычные квиз'],
+      'person-landing':       ['Диагностика', 'лендинг обычные квиз'],
+      'entrepreneur-quiz':    ['Диагностика', 'предприниматель квиз'],
+      'entrepreneur-landing': ['Диагностика', 'лендинг предприниматель квиз'],
+    };
+    const tagKey  = `${type}-${source || 'quiz'}`;
+    const tagList = (TAG_MAP[tagKey] || ['Диагностика']).map(name => ({ name }));
+
     const leadRes = await fetch(`https://${AMO_DOMAIN}/api/v4/leads`, {
       method: 'POST', headers: h,
       body: JSON.stringify([{
         name:        leadName,
         pipeline_id: PIPELINE_ID,
         _embedded: {
-          tags:     [{ name: 'Диагностика' }, { name: quizType }],
+          tags:     tagList,
           contacts: contactId ? [{ id: contactId }] : [],
         },
       }]),

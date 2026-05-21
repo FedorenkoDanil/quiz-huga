@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Аналитика квизов — Hugency</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0f0f14;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:24px;min-height:100vh}
+h1{font-size:22px;font-weight:700;margin-bottom:8px;color:#fff}
+.sub{font-size:13px;color:#64748b;margin-bottom:32px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.card{background:#1a1a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px}
+.card-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#a78bfa;margin-bottom:16px}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.label{font-size:12px;color:#94a3b8;width:130px;flex-shrink:0}
+.bar-wrap{flex:1;background:rgba(255,255,255,.06);border-radius:4px;height:18px;overflow:hidden}
+.bar{height:100%;border-radius:4px;transition:width .6s ease;background:linear-gradient(90deg,#7c3aed,#a855f7)}
+.bar.green{background:linear-gradient(90deg,#059669,#10b981)}
+.bar.rose{background:linear-gradient(90deg,#be185d,#ec4899)}
+.count{font-size:12px;font-weight:700;color:#e2e8f0;width:38px;text-align:right}
+.pct{font-size:11px;color:#64748b;width:36px;text-align:right}
+.divider{border:none;border-top:1px solid rgba(255,255,255,.06);margin:10px 0}
+.loading{text-align:center;color:#64748b;font-size:14px;padding:60px}
+.err{color:#f87171;font-size:13px;text-align:center;padding:40px}
+.refresh{background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);color:#a78bfa;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:12px;float:right}
+.refresh:hover{background:rgba(124,58,237,.25)}
+</style>
+</head>
+<body>
+<h1>Аналитика квизов <button class="refresh" onclick="load()">Обновить</button></h1>
+<p class="sub">Воронка прохождения · обновляется в реальном времени</p>
+<div id="root"><p class="loading">Загрузка...</p></div>
+
+<script>
+const LABELS = {
+  start:'Открыли квиз', s1:'Шаг 1', s2:'Шаг 2', s3:'Шаг 3', s4:'Шаг 4',
+  s5:'Шаг 5', s6:'Шаг 6', s7:'Шаг 7', s8:'Шаг 8', s9:'Шаг 9',
+  s10:'Шаг 10', s11:'Шаг 11', s12:'Шаг 12', s13:'Шаг 13', s14:'Шаг 14',
+  form:'Дошли до формы', lead:'Оставили заявку', score:'Увидели результат',
+  cta:'Кликнули "Получить консультацию"', downsell:'Кликнули Telegram'
+};
+const QUIZ_NAMES = {
+  'person-quiz':          'Обычный человек (без лендинга)',
+  'person-landing':       'Обычный человек (с лендингом)',
+  'entrepreneur-quiz':    'Предприниматель (без лендинга)',
+  'entrepreneur-landing': 'Предприниматель (с лендингом)',
+};
+const KEY_STEPS = ['form','lead','score','cta','downsell'];
+
+function bar(val, max, cls='') {
+  const pct = max > 0 ? Math.round(val / max * 100) : 0;
+  const w = max > 0 ? (val / max * 100).toFixed(1) : 0;
+  return `<div class="row">
+    <span class="label">${''}</span>
+    <div class="bar-wrap"><div class="bar ${cls}" style="width:${w}%"></div></div>
+    <span class="count">${val}</span>
+    <span class="pct">${pct}%</span>
+  </div>`;
+}
+
+function renderQuiz(name, data) {
+  const start = data.start || 0;
+  const keys = Object.keys(data);
+  let html = `<div class="card"><div class="card-title">${QUIZ_NAMES[name] || name}</div>`;
+
+  keys.forEach(k => {
+    if (!LABELS[k]) return;
+    const v = data[k];
+    const isKey = KEY_STEPS.includes(k);
+    const cls = k === 'lead' ? 'green' : k === 'cta' || k === 'downsell' ? 'rose' : '';
+    const pct = start > 0 ? Math.round(v / start * 100) : 0;
+    const w = start > 0 ? (v / start * 100).toFixed(1) : 0;
+    if (k === 'form') html += `<hr class="divider">`;
+    html += `<div class="row">
+      <span class="label">${LABELS[k]}</span>
+      <div class="bar-wrap"><div class="bar ${cls}" style="width:${w}%"></div></div>
+      <span class="count">${v}</span>
+      <span class="pct">${start > 0 ? pct+'%' : '—'}</span>
+    </div>`;
+  });
+
+  html += '</div>';
+  return html;
+}
+
+async function load() {
+  const root = document.getElementById('root');
+  root.innerHTML = '<p class="loading">Загрузка...</p>';
+  try {
+    const r = await fetch('/api/stats');
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    if (data.error) throw new Error(data.error);
+    let html = '<div class="grid">';
+    for (const [quiz, steps] of Object.entries(data)) {
+      html += renderQuiz(quiz, steps);
+    }
+    html += '</div>';
+    root.innerHTML = html;
+  } catch(e) {
+    root.innerHTML = `<p class="err">Ошибка: ${e.message}<br><br>Убедись что Vercel KV подключён (см. инструкцию ниже).</p>`;
+  }
+}
+
+load();
+setInterval(load, 60000); // auto-refresh every minute
+</script>
+</body>
+</html>
