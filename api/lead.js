@@ -81,25 +81,25 @@ module.exports = async function handler(req, res) {
 
     // 3. Note with quiz answers
     if (leadId) {
-      const lines = [`👤 ${name}`, `📱 ${contact}`, `📋 Тип: ${quizType}`, ``];
+      const lines = [`Имя: ${name}`, `Контакт: ${contact}`, `Тип: ${quizType}`, ``];
 
       if (type === 'entrepreneur') {
-        lines.push(`🏢 Ниша: ${nicheLabel}`);
-        if (answers.rev_now)      lines.push(`💰 Выручка сейчас: ${answers.rev_now}`);
-        if (answers.rev_goal)     lines.push(`🎯 Цель выручки: ${answers.rev_goal}`);
-        if (answers.ai_level)     lines.push(`🤖 Уровень AI: ${answers.ai_level}/5`);
-        if (answers.content_time) lines.push(`⏱ Время на контент: ${answers.content_time}`);
-        if (answers.blog)         lines.push(`📸 Соцсети: ${answers.blog}`);
+        lines.push(`Ниша: ${nicheLabel}`);
+        if (answers.rev_now)      lines.push(`Выручка сейчас: ${answers.rev_now}`);
+        if (answers.rev_goal)     lines.push(`Цель выручки: ${answers.rev_goal}`);
+        if (answers.ai_level)     lines.push(`Уровень AI: ${answers.ai_level}/5`);
+        if (answers.content_time) lines.push(`Время на контент: ${answers.content_time}`);
+        if (answers.blog)         lines.push(`Соцсети: ${answers.blog}`);
       } else {
-        lines.push(`🎯 Цель: ${MOTIVATION_LABELS[answers.motivation] || answers.motivation || '—'}`);
-        if (answers.experience) lines.push(`💼 Опыт с AI: ${answers.experience}`);
-        if (answers.income)     lines.push(`💰 Доход сейчас: ${answers.income}`);
-        if (answers.time)       lines.push(`⏱ Время в день: ${answers.time}`);
-        if (answers.audience)   lines.push(`👥 Аудитория: ${answers.audience}`);
+        lines.push(`Цель: ${MOTIVATION_LABELS[answers.motivation] || answers.motivation || '—'}`);
+        if (answers.experience) lines.push(`Опыт с AI: ${answers.experience}`);
+        if (answers.income)     lines.push(`Доход сейчас: ${answers.income}`);
+        if (answers.time)       lines.push(`Время в день: ${answers.time}`);
+        if (answers.audience)   lines.push(`Аудитория: ${answers.audience}`);
       }
 
       if (multi && Object.keys(multi).length > 0) {
-        lines.push(``, `📝 Доп. ответы:`);
+        lines.push(``, `Доп. ответы:`);
         for (const [k, v] of Object.entries(multi)) {
           if (Array.isArray(v) && v.length) lines.push(`  ${k}: ${v.join(', ')}`);
         }
