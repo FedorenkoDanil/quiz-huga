@@ -1,0 +1,1365 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0a0510">
+<title>Hugency Academy — ИИ-контент для твоего бизнеса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0510;--card:#13091f;--card2:#1a0f2e;--pink:#d4286a;--rose:#e8437f;--pur:#8b5cf6;--lite:#f472b6;--gold:#f5c842;--w:#fff;--muted:rgba(255,255,255,.55);--dim:rgba(255,255,255,.32);--b:rgba(212,40,106,.22);--bp:rgba(139,92,246,.28);--gp:0 0 36px rgba(212,40,106,.32);--r1:10px;--r2:16px;--r3:24px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+#c{position:fixed;inset:0;z-index:0;pointer-events:none}
+.wrap{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:0 18px 48px}
+.scr{display:none}.scr.on{display:block}
+.hdr{display:flex;align-items:center;justify-content:center;padding:16px 0 12px;gap:12px;position:relative}
+.logo{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+.logo b{color:var(--rose)}
+.back-btn{position:absolute;left:0;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px;line-height:1;display:none}
+.back-btn.vis{display:block}
+
+/* ── LANDING ── */
+#scr-land{text-align:center;padding-top:4px}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-family:'Unbounded',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--rose);border:1px solid var(--b);padding:5px 14px;border-radius:40px;margin-bottom:14px;background:rgba(212,40,106,.07)}
+.h1{font-family:'Unbounded',sans-serif;font-size:clamp(21px,5vw,34px);font-weight:900;line-height:1.17;margin-bottom:14px;letter-spacing:-.01em}
+.h1 .g{background:linear-gradient(135deg,#e8437f,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:15px;color:var(--muted);line-height:1.65;max-width:440px;margin:0 auto 22px}
+.vid-box{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r3);overflow:hidden;background:var(--card);border:1px solid var(--b);box-shadow:var(--gp);margin-bottom:18px}
+.vid-box video{width:100%;height:100%;object-fit:cover;display:block}
+.vid-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a0f2e,#0f0520);cursor:pointer;transition:opacity .4s;z-index:2}
+.vid-ph.gone{opacity:0;pointer-events:none}
+.play{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--pur));display:flex;align-items:center;justify-content:center;margin-bottom:12px;box-shadow:0 0 36px rgba(212,40,106,.5);transition:transform .2s}
+.vid-ph:hover .play{transform:scale(1.08)}
+.play svg{margin-left:4px}
+.vid-ph p{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:600;color:var(--muted)}
+.hiw{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 18px}
+.hiw-item{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r2);padding:14px 12px;text-align:center}
+.hiw-n{font-family:'Unbounded',sans-serif;font-size:20px;font-weight:900;color:var(--rose);margin-bottom:4px}
+.hiw-t{font-size:11px;color:var(--muted);line-height:1.4}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.stat{background:var(--card);border:1px solid var(--bp);border-radius:var(--r2);padding:13px 10px;text-align:center}
+.stat-n{font-family:'Unbounded',sans-serif;font-size:19px;font-weight:900;background:linear-gradient(135deg,#e8437f,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:3px}
+.stat-l{font-size:11px;color:var(--muted);line-height:1.3}
+.proof{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;font-size:13px;color:var(--muted)}
+.avs{display:flex}
+.avs span{width:26px;height:26px;border-radius:50%;border:2px solid var(--bg);margin-left:-7px;font-size:12px;display:flex;align-items:center;justify-content:center;background:var(--card2)}
+.avs span:first-child{margin-left:0}
+.btn-main{display:block;width:100%;padding:17px 24px;background:linear-gradient(135deg,var(--pink),#b0205b);color:#fff;font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;border:none;border-radius:var(--r2);cursor:pointer;text-transform:uppercase;box-shadow:0 8px 28px rgba(212,40,106,.42);transition:transform .15s,box-shadow .15s;text-align:center;text-decoration:none}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(212,40,106,.58)}
+.cta-note{margin-top:10px;font-size:11px;color:var(--dim);text-align:center}
+
+/* ── QUIZ ── */
+#scr-quiz{padding-top:8px}
+.prog-wrap{margin-bottom:22px}
+.prog-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.prog-lbl{font-size:11px;color:var(--dim);font-weight:500;letter-spacing:.07em;text-transform:uppercase}
+.prog-cnt{font-family:'Unbounded',sans-serif;font-size:12px;color:var(--rose);font-weight:600}
+.prog-track{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--pur));border-radius:2px;transition:width .55s cubic-bezier(.4,0,.2,1)}
+.step{display:none}
+.step.on{display:block;animation:fsi .3s ease}
+@keyframes fsi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.sbadge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);border:1px solid var(--b);padding:4px 12px;border-radius:40px;margin-bottom:12px;background:rgba(212,40,106,.07)}
+.sh2{font-family:'Unbounded',sans-serif;font-size:clamp(18px,4vw,26px);font-weight:700;line-height:1.22;margin-bottom:8px}
+.ssub{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6}
+
+/* opts */
+.opts{display:flex;flex-direction:column;gap:9px;margin-bottom:20px}
+.opt{display:flex;align-items:center;gap:13px;padding:14px 16px;background:var(--card);border:1.5px solid rgba(255,255,255,.07);border-radius:var(--r2);cursor:pointer;transition:border-color .18s,background .18s,transform .12s;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.opt::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,40,106,.06),rgba(139,92,246,.04));opacity:0;transition:opacity .18s}
+.opt:hover{border-color:rgba(212,40,106,.38);transform:translateX(3px)}
+.opt:hover::before{opacity:1}
+.opt.sel{border-color:var(--rose);background:rgba(212,40,106,.09);transform:translateX(3px)}
+.opt.sel::before{opacity:1}
+.oi{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;line-height:1;transition:background .18s}
+.opt.sel .oi{background:rgba(212,40,106,.18)}
+.otw{flex:1}
+.om{font-size:15px;font-weight:500;color:var(--w);line-height:1.3}
+.oh{font-size:12px;color:var(--muted);margin-top:2px}
+.ock{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,.18);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .18s,background .18s}
+.opt.sel .ock{border-color:var(--rose);background:var(--rose)}
+.ock::after{content:'✓';font-size:11px;color:#fff;opacity:0;transition:opacity .18s}
+.opt.sel .ock::after{opacity:1}
+/* multi */
+.opt.multi.sel{border-color:var(--pur);background:rgba(139,92,246,.09)}
+.opt.multi.sel .oi{background:rgba(139,92,246,.2)}
+.opt.multi.sel .ock{border-color:var(--pur);background:var(--pur)}
+.mnote{font-size:12px;color:var(--dim);margin-bottom:10px}
+
+/* niche grid */
+.ng{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:20px}
+.nc{background:var(--card);border:1.5px solid rgba(255,255,255,.07);border-radius:var(--r2);padding:14px 12px;cursor:pointer;transition:all .22s;text-align:center;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.nc:hover{border-color:rgba(212,40,106,.4);transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,40,106,.14)}
+.nc.sel{border-color:var(--rose);background:rgba(212,40,106,.09);transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,40,106,.22)}
+.nc-em{font-size:26px;margin-bottom:5px;display:block;line-height:1.2}
+.nc-n{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--w);margin-bottom:2px;letter-spacing:.01em}
+.nc-d{font-size:10px;color:var(--muted);line-height:1.3}
+
+/* btn */
+.qnxt{width:100%;padding:15px 20px;background:linear-gradient(135deg,var(--pink),#b0205b);color:#fff;font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;letter-spacing:.05em;border:none;border-radius:var(--r2);cursor:pointer;text-transform:uppercase;box-shadow:0 6px 22px rgba(212,40,106,.38);transition:transform .14s,box-shadow .14s,opacity .18s}
+.qnxt:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 28px rgba(212,40,106,.52)}
+.qnxt:disabled{opacity:.32;cursor:not-allowed;transform:none;box-shadow:none}
+.qnxt-pur{background:linear-gradient(135deg,var(--pur),#6d3dd4);box-shadow:0 6px 22px rgba(139,92,246,.38)}
+.qnxt-pur:hover:not(:disabled){box-shadow:0 10px 28px rgba(139,92,246,.52)}
+
+/* ANALYZING */
+.analyzing{text-align:center;padding:32px 0 24px}
+.analyzing-ring{width:56px;height:56px;border-radius:50%;border:3px solid rgba(212,40,106,.14);border-top-color:var(--rose);animation:spin .8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.analyzing-title{font-family:'Unbounded',sans-serif;font-size:16px;font-weight:700;margin-bottom:18px;color:var(--w)}
+.an-items{list-style:none;text-align:left;display:flex;flex-direction:column;gap:10px}
+.an-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);opacity:0;transition:opacity .4s}
+.an-item.vis{opacity:1}
+.an-dot{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--muted);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .3s}
+.an-item.done .an-dot{background:var(--rose);border-color:var(--rose);color:#fff}
+
+/* WARMUP */
+.wu-card{background:var(--card2);border:1px solid var(--bp);border-radius:var(--r3);padding:20px 18px;margin-bottom:18px;position:relative;overflow:hidden}
+.wu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--pink),var(--pur))}
+.wu-badge{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pur);margin-bottom:10px}
+.wu-h{font-family:'Unbounded',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;line-height:1.3}
+.wu-h .g{color:var(--gold)}
+.wu-t{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.case-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);padding:13px 14px;display:flex;align-items:flex-start;gap:11px}
+.cav{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--pur));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ci{flex:1}
+.cn{font-weight:600;font-size:13px;margin-bottom:1px;color:var(--w)}
+.cr{font-family:'Unbounded',sans-serif;font-size:15px;font-weight:900;color:var(--gold);margin-bottom:3px}
+.ct{font-size:12px;color:var(--muted);line-height:1.4}
+
+/* WARMUP COMPARISON */
+.cmp-row{display:grid;grid-template-columns:1fr 22px 1fr;align-items:center;gap:8px;margin-bottom:14px}
+.cmp-side{border-radius:var(--r2);padding:12px 10px;text-align:center}
+.cmp-bad{background:rgba(255,80,80,.06);border:1px solid rgba(255,80,80,.18)}
+.cmp-good{background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.2)}
+.cmp-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.cmp-bad .cmp-lbl{color:#ff6b6b}
+.cmp-good .cmp-lbl{color:#4ade80}
+.cmp-task{font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.4;min-height:28px}
+.cmp-val{font-family:'Unbounded',sans-serif;font-size:20px;font-weight:900;line-height:1}
+.cmp-bad .cmp-val{color:rgba(255,255,255,.32);text-decoration:line-through}
+.cmp-good .cmp-val{color:var(--gold)}
+.cmp-arr{text-align:center;font-size:18px;color:var(--rose);font-weight:900}
+.wu-insight{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.18);border-radius:var(--r2);padding:12px 14px;margin-top:4px}
+.wu-insight-ttl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--pur);margin-bottom:8px}
+.wu-insight-list{margin:0;padding-left:16px}
+.wu-insight-list li{font-size:13px;color:rgba(255,255,255,.75);line-height:1.5;margin-bottom:5px}
+.wu-insight-list li:last-child{margin-bottom:0}
+
+/* NICHE TEXT INPUT */
+.niche-inp{width:100%;padding:14px 16px;background:var(--card);border:1.5px solid rgba(255,255,255,.09);border-radius:var(--r2);color:var(--w);font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color .18s,box-shadow .18s;margin-bottom:14px;-webkit-appearance:none}
+.niche-inp::placeholder{color:var(--dim)}
+.niche-inp:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(212,40,106,.13)}
+.niche-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.ntag{padding:7px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:40px;font-size:13px;color:var(--muted);cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.ntag:hover{border-color:var(--rose);color:var(--lite);background:rgba(212,40,106,.08)}
+
+/* CONTENT STEP */
+.earn-hero{text-align:center;background:linear-gradient(135deg,rgba(212,40,106,.1),rgba(139,92,246,.1));border:1px solid var(--b);border-radius:var(--r3);padding:18px 16px;margin-bottom:14px}
+.earn-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-bottom:6px}
+.earn-n{font-family:'Unbounded',sans-serif;font-size:clamp(20px,4.5vw,28px);font-weight:900;color:var(--gold);line-height:1.15;margin-bottom:3px}
+.earn-s{font-size:12px;color:var(--muted)}
+.ce-list{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
+.ce{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);padding:12px 14px;display:flex;align-items:center;gap:12px}
+.ce-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--pur);background:rgba(139,92,246,.12);padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0}
+.ce-txt{flex:1;font-size:13px;color:var(--w);line-height:1.4}
+.ce-v{font-size:11px;color:var(--muted);white-space:nowrap}
+
+/* SCORE SCREEN */
+.score-wrap{text-align:center;padding:8px 0 20px}
+.score-ring-wrap{position:relative;width:130px;height:130px;margin:0 auto 30px}
+.score-ring-wrap svg{transform:rotate(-90deg)}
+.score-ring-bg{fill:none;stroke:rgba(255,255,255,.07);stroke-width:8}
+.score-ring-fill{fill:none;stroke:url(#scoreGrad);stroke-width:8;stroke-linecap:round;stroke-dasharray:339;stroke-dashoffset:339;transition:stroke-dashoffset 2.8s cubic-bezier(.4,0,.2,1)}
+.score-pct{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Unbounded',sans-serif;font-size:26px;font-weight:900;color:var(--gold)}
+.score-lbl{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--rose);text-align:center;margin-bottom:14px;letter-spacing:.12em;text-transform:uppercase}
+.score-title{font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;margin-bottom:8px;line-height:1.3}
+.score-sub{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;max-width:320px;margin-left:auto;margin-right:auto}
+.score-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:20px}
+.score-tag{padding:6px 14px;background:rgba(212,40,106,.1);border:1px solid var(--b);border-radius:40px;font-size:12px;color:var(--rose)}
+/* AI SCALE */
+.ai-scale{margin-bottom:24px}
+.ai-scale-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:10px;letter-spacing:.06em;text-transform:uppercase}
+.ai-scale-btns{display:flex;gap:8px;margin-bottom:16px}
+.ai-btn{flex:1;aspect-ratio:1;border-radius:var(--r2);border:1.5px solid rgba(255,255,255,.1);background:var(--card);color:var(--muted);font-family:'Unbounded',sans-serif;font-size:18px;font-weight:700;cursor:pointer;transition:all .18s;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center}
+.ai-btn:hover{border-color:rgba(212,40,106,.4);color:var(--w)}
+.ai-btn.sel{border-color:var(--rose);background:rgba(212,40,106,.14);color:var(--rose);box-shadow:0 0 18px rgba(212,40,106,.28)}
+.ai-scale-desc{font-size:13px;color:rgba(255,255,255,.75);text-align:center;min-height:40px;line-height:1.5;padding:0 4px;transition:opacity .2s}
+.score-loading{text-align:center;padding:40px 0 28px}
+.sl-spinner{width:52px;height:52px;border-radius:50%;border:3px solid rgba(212,40,106,.15);border-top-color:var(--rose);animation:spin .85s linear infinite;margin:0 auto 24px}
+.sl-pct-big{font-family:'Unbounded',sans-serif;font-size:52px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:16px}
+.sl-stage{font-size:13px;color:rgba(255,255,255,.88);line-height:1.5;margin-bottom:20px;min-height:40px}
+.sl-bar-wrap{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:14px}
+.sl-bar-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--pur));border-radius:3px;width:0;transition:width 2s cubic-bezier(.4,0,.2,1)}
+.sl-hint{font-size:11px;color:var(--muted);letter-spacing:.04em}
+
+/* FORM */
+.fg{margin-bottom:12px}
+.fl{font-size:13px;font-weight:500;color:var(--muted);margin-bottom:5px;display:block}
+.fi{width:100%;padding:14px 16px;background:var(--card);border:1.5px solid rgba(255,255,255,.09);border-radius:var(--r2);color:var(--w);font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color .18s,box-shadow .18s;-webkit-appearance:none}
+.fi::placeholder{color:var(--dim)}
+.fi:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(212,40,106,.13)}
+.pnote{font-size:11px;color:var(--dim);text-align:center;margin-top:9px;line-height:1.5}
+
+/* THANK YOU */
+#scr-ty{padding-top:18px;text-align:center}
+.ty-check{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--pur));display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 0 36px rgba(212,40,106,.4);font-size:26px}
+.ty-h{font-family:'Unbounded',sans-serif;font-size:clamp(20px,4vw,27px);font-weight:900;line-height:1.2;margin-bottom:10px}
+.ty-s{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+.offer-box{background:var(--card2);border:2px solid var(--gold);border-radius:var(--r3);padding:22px 18px 28px;margin-bottom:18px;position:relative;box-shadow:0 0 40px rgba(245,200,66,.12)}
+.offer-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,200,66,.06),transparent);border-radius:inherit;pointer-events:none}
+.offer-tag{display:inline-block;font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,200,66,.38);padding:4px 12px;border-radius:40px;margin-bottom:10px}
+.offer-h{font-family:'Unbounded',sans-serif;font-size:18px;font-weight:900;color:var(--w);margin-bottom:8px;line-height:1.3}
+.offer-items{list-style:none;text-align:left;margin-bottom:16px}
+.offer-items li{font-size:13px;color:var(--muted);padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px}
+.offer-items li b{color:var(--rose)}
+.offer-price{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:14px}
+.offer-old{font-size:16px;color:var(--dim);text-decoration:line-through}
+.offer-new{font-family:'Unbounded',sans-serif;font-size:30px;font-weight:900;color:var(--gold)}
+@keyframes cta-shine{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes cta-glow{0%,100%{box-shadow:0 8px 28px rgba(245,200,66,.45),0 0 0 0 rgba(245,200,66,.2)}50%{box-shadow:0 10px 38px rgba(245,200,66,.7),0 0 0 7px rgba(245,200,66,.0)}}
+.offer-cta{display:block;width:100%;padding:17px 20px;background:linear-gradient(90deg,#f5c842,#ffdb6e,#e6a800,#ffd234,#f5c842);background-size:300% 100%;color:#1a0a00;font-family:'Unbounded',sans-serif;font-size:13px;font-weight:900;letter-spacing:.05em;border:none;border-radius:var(--r2);cursor:pointer;text-transform:uppercase;animation:cta-shine 2.8s linear infinite,cta-glow 2.2s ease-in-out infinite;transition:transform .14s,filter .14s;text-align:center;text-decoration:none}
+.offer-cta:hover{transform:translateY(-2px) scale(1.01);filter:brightness(1.08)}
+.offer-note{font-size:11px;color:var(--dim);margin-top:10px;text-align:center;line-height:1.5}
+.ty-skip{font-size:12px;color:var(--dim);cursor:pointer;text-decoration:underline;display:block;text-align:center;margin-top:14px}
+/* timer */
+.offer-timer{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:12px;font-size:12px;color:var(--muted)}
+.timer-val{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:var(--rose)}
+
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-ov.on{display:flex;animation:fsi .28s ease}
+.modal-box{background:var(--card2);border:1px solid var(--b);border-radius:var(--r3);max-width:340px;width:100%;overflow:hidden}
+.modal-hdr{padding:14px 18px 10px;display:flex;align-items:center;justify-content:space-between}
+.modal-badge{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--rose);background:rgba(212,40,106,.1);border:1px solid var(--b);padding:4px 10px;border-radius:20px}
+.modal-x{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1;transition:color .15s}
+.modal-x:hover{color:var(--w)}
+.phone{width:270px;height:490px;margin:0 auto;border-radius:36px;background:linear-gradient(160deg,#1a0f2e,#0a0510);border:2.5px solid rgba(255,255,255,.1);position:relative;overflow:hidden;box-shadow:0 0 70px rgba(139,92,246,.35)}
+.phone video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.p-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.92) 100%)}
+.phone-in{position:absolute;bottom:100px;left:0;right:0;display:flex;flex-direction:column;align-items:center;padding:0 20px}
+.p-em{font-size:58px;margin-bottom:10px;line-height:1;display:block}
+.p-name{font-family:'Unbounded',sans-serif;font-size:15px;font-weight:700;color:var(--w);margin-bottom:6px;text-align:center}
+.p-hook{font-size:12px;color:rgba(255,255,255,.82);text-align:center;line-height:1.5;margin-bottom:0}
+.p-stats{position:absolute;bottom:24px;left:0;right:0;display:flex;justify-content:center;gap:24px;padding:0 20px}
+.pst{text-align:center}
+.pst-n{font-family:'Unbounded',sans-serif;font-size:17px;font-weight:900;color:#fff;display:block;line-height:1.1}
+.pst-l{font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em;margin-top:3px;display:block}
+.p-badge{position:absolute;top:14px;right:14px;background:rgba(212,40,106,.9);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:4px 10px;border-radius:6px;color:#fff}
+.p-play{position:absolute;bottom:24px;left:20px;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--pur));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(212,40,106,.65)}
+.p-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08)}
+.p-bar-f{height:100%;background:linear-gradient(90deg,var(--pink),var(--pur));animation:bf 2.8s linear infinite}
+@keyframes bf{from{width:0}to{width:100%}}
+.modal-body{padding:14px 18px 18px}
+.modal-ttl{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;margin-bottom:8px;line-height:1.3}
+.modal-earn-row{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.me-lbl{font-size:12px;color:var(--muted);flex-shrink:0}
+.me-val{font-family:'Unbounded',sans-serif;font-size:15px;font-weight:900;color:var(--gold)}
+.modal-cta{width:100%;padding:13px;background:linear-gradient(135deg,var(--pink),#b0205b);color:#fff;font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;border:none;border-radius:var(--r2);cursor:pointer;text-transform:uppercase;letter-spacing:.04em;box-shadow:0 5px 18px rgba(212,40,106,.38)}
+
+/* CONFIRM SCREEN */
+.confirm-box{background:var(--card);border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);padding:4px 16px;margin-bottom:18px}
+.conf-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
+.conf-row:last-child{border-bottom:none}
+.conf-lbl{color:var(--muted)}
+.conf-val{color:var(--w);font-weight:600;text-align:right;max-width:55%}
+.btn-ghost{display:block;width:100%;padding:13px;background:transparent;color:var(--muted);font-family:'Unbounded',sans-serif;font-size:12px;font-weight:600;border:1.5px solid rgba(255,255,255,.12);border-radius:var(--r2);cursor:pointer;text-align:center;margin-top:10px;transition:all .2s;letter-spacing:.04em;text-transform:uppercase}
+.btn-ghost:hover{border-color:rgba(255,255,255,.28);color:var(--w)}
+/* SCALE */
+.scale-wrap{margin-bottom:24px}
+.scale-btns{display:flex;gap:10px;justify-content:center;margin-bottom:12px}
+.scale-btn{width:54px;height:54px;border-radius:12px;border:1.5px solid rgba(255,255,255,.12);background:var(--card);color:var(--w);font-size:20px;font-weight:600;cursor:pointer;transition:all .18s;font-family:'Unbounded',sans-serif}
+.scale-btn:hover{border-color:var(--rose);background:rgba(212,40,106,.08)}
+.scale-btn.sel{border-color:var(--rose);background:rgba(212,40,106,.18);color:var(--rose)}
+.scale-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);padding:0 4px}
+.micro-insight{display:none}
+/* INSIGHT MODAL */
+.ins-modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
+.ins-modal-ov.on{display:flex;animation:fsi .28s ease}
+.ins-modal-box{background:var(--card2);border:1px solid rgba(139,92,246,.35);border-left:4px solid var(--rose);border-radius:var(--r3);max-width:390px;width:100%;padding:26px 22px}
+.ins-modal-tag{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);display:flex;align-items:center;gap:7px;margin-bottom:14px}
+.ins-modal-txt{font-size:15px;color:var(--w);line-height:1.7;margin-bottom:22px}
+.ins-modal-btn{display:block;width:100%;padding:14px 20px;background:linear-gradient(135deg,var(--pink),#b0205b);color:#fff;font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;letter-spacing:.05em;border:none;border-radius:var(--r2);cursor:pointer;text-transform:uppercase;box-shadow:0 6px 22px rgba(212,40,106,.38);transition:transform .14s}
+.ins-modal-btn:hover{transform:translateY(-2px)}
+/* INSIGHT CARD */
+.insight-card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--r3);padding:24px 20px;margin-bottom:20px}
+.ins-icon{font-size:36px;margin-bottom:12px;display:block;text-align:center}
+.ins-h{font-family:'Unbounded',sans-serif;font-size:18px;font-weight:700;line-height:1.25;margin-bottom:12px;text-align:center}
+.ins-t{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:16px}
+.ins-quote{background:rgba(255,255,255,.04);border-left:3px solid var(--rose);border-radius:0 10px 10px 0;padding:12px 14px}
+.ins-quote p{font-size:13px;color:var(--w);font-style:italic;margin-bottom:5px;line-height:1.5}
+.ins-quote span{font-size:11px;color:var(--muted)}
+@media(max-width:380px){.ng{grid-template-columns:repeat(2,1fr)}.nc-n{font-size:10px}.scale-btn{width:46px;height:46px;font-size:17px}}
+.downsell-box{background:var(--card2);border:1px solid var(--bp);border-radius:var(--r3);padding:20px 18px;text-align:center}
+.downsell-tag{display:inline-block;font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pur);border:1px solid var(--bp);padding:4px 12px;border-radius:40px;margin-bottom:12px;background:rgba(139,92,246,.08)}
+.downsell-h{font-family:'Unbounded',sans-serif;font-size:15px;font-weight:700;color:var(--w);margin-bottom:8px;line-height:1.3}
+.downsell-t{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5}
+.downsell-cta{display:block;width:100%;padding:14px 20px;background:linear-gradient(135deg,var(--pur),#6d3dd4);color:#fff;font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;border:none;border-radius:var(--r2);cursor:pointer;text-transform:uppercase;text-align:center;text-decoration:none;box-shadow:0 6px 22px rgba(139,92,246,.38);margin-bottom:12px;transition:transform .14s}
+.downsell-cta:hover{transform:translateY(-2px)}
+.ty-skip2{font-size:12px;color:var(--dim);cursor:pointer;text-decoration:underline;display:block;text-align:center}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<!-- ══ INSIGHT MODAL ══ -->
+<div id="ins-modal" class="ins-modal-ov">
+  <div class="ins-modal-box">
+    <div class="ins-modal-tag">💡 Знаешь ли ты</div>
+    <p class="ins-modal-txt" id="ins-modal-txt"></p>
+    <button class="ins-modal-btn" onclick="closeInsModal()">Понятно, продолжить →</button>
+  </div>
+</div>
+
+<!-- ══ MODAL ══ -->
+<div id="modal" class="modal-ov">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <span class="modal-badge">AI Контент для бизнеса · Реальный кейс</span>
+      <button class="modal-x" onclick="closeModal()">✕</button>
+    </div>
+    <div style="display:flex;justify-content:center;margin:0 14px 14px">
+      <div class="phone">
+        <video id="m-vid" muted loop playsinline></video>
+        <div class="p-ov"></div>
+        <div class="p-badge">AI</div>
+        <div class="phone-in">
+          <div class="p-name" id="m-name"></div>
+          <div class="p-hook" id="m-hook"></div>
+        </div>
+        <div class="p-stats">
+          <div class="pst"><div class="pst-n" id="m-v"></div><div class="pst-l">просм.</div></div>
+          <div class="pst"><div class="pst-n" id="m-l"></div><div class="pst-l">лайков</div></div>
+          <div class="pst"><div class="pst-n" id="m-s"></div><div class="pst-l">коммент.</div></div>
+        </div>
+        <div class="p-bar"><div class="p-bar-f"></div></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-ttl" id="m-ttl"></div>
+      <div class="modal-earn-row">
+        <span class="me-lbl">Рост выручки:</span>
+        <span class="me-val" id="m-earn"></span>
+      </div>
+      <button class="modal-cta" onclick="closeModal()">Смотреть мой анализ →</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="hdr">
+    <button class="back-btn" id="back-btn" onclick="goBack()">←</button>
+    <div class="logo">HUGENCY <b>ACADEMY</b></div>
+  </header>
+
+  <!-- ══ LANDING ══ -->
+  <div id="scr-land" class="scr on" style="display:none">
+    <span class="eyebrow">📊 Для предпринимателей</span>
+    <h1 class="h1">Как твой бизнес растёт<br><span class="g">с ИИ‑контентом за 3 месяца</span></h1>
+    <p class="sub">Пройди квиз — получи персональный анализ: сколько твой бизнес теряет без AI-контента и конкретный план роста</p>
+    <div class="vid-box">
+      <video id="vid" muted playsinline preload="auto"><source src="intro.mp4" type="video/mp4"></video>
+      <div class="vid-ph" id="vid-ph" onclick="playVid()">
+        <div class="play"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+        <p>Смотри реальные кейсы бизнесов</p>
+      </div>
+    </div>
+    <div class="hiw">
+      <div class="hiw-item"><div class="hiw-n">1</div><div class="hiw-t">Выбери сферу</div></div>
+      <div class="hiw-item"><div class="hiw-n">2</div><div class="hiw-t">Получи анализ роста</div></div>
+      <div class="hiw-item"><div class="hiw-n">3</div><div class="hiw-t">Забери план</div></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="stat-n">300+</span><span class="stat-l">бизнесов внедрили ИИ</span></div>
+      <div class="stat"><span class="stat-n">×2.5</span><span class="stat-l">средний рост продаж</span></div>
+      <div class="stat"><span class="stat-n">3 мин</span><span class="stat-l">квиз</span></div>
+    </div>
+    <div class="proof">
+      <div class="avs"><span>👨‍💼</span><span>👩‍💼</span><span>🧑‍💼</span><span>👨</span></div>
+      <span>300+ предпринимателей уже масштабируются</span>
+    </div>
+    <button class="btn-main" onclick="startQuiz()">Пройти бесплатный квиз →</button>
+    <p class="cta-note">🔒 Конфиденциально · Результат сразу</p>
+  </div>
+
+  <!-- ══ QUIZ ══ -->
+  <div id="scr-quiz" class="scr">
+    <div class="prog-wrap">
+      <div class="prog-hdr">
+        <span class="prog-lbl">Диагностика бизнеса</span>
+        <span class="prog-cnt" id="pcnt">1 / 9</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+    </div>
+
+    <!-- Q1: Business situation / pain hook -->
+    <!-- NICHE SELECTION -->
+    <div id="s-niche" class="step">
+      <div class="sbadge">Выбор ниши</div>
+      <h2 class="sh2">В какой сфере работает твой бизнес?</h2>
+      <p class="ssub">Подберём кейсы и стратегию роста специально под твою нишу</p>
+      <div class="ng" id="ngrid"></div>
+      <button class="qnxt" id="n2" disabled onclick="onNicheNext()">Посмотреть кейсы →</button>
+    </div>
+
+    <div id="s1" class="step">
+      <div class="sbadge">Шаг 1 из 14</div>
+      <h2 class="sh2">Как сейчас обстоит дело с привлечением клиентов?</h2>
+      <p class="ssub">Выбери то, что ближе к ситуации — подберём стратегию именно под твой бизнес</p>
+      <div class="opts">
+        <div class="opt" onclick="sel(this,'status','referral')">
+          <div class="oi">📵</div>
+          <div class="otw"><div class="om">Работаем на сарафане — нестабильно</div><div class="oh">Клиенты есть, но поток непредсказуемый</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'status','ads')">
+          <div class="oi">📢</div>
+          <div class="otw"><div class="om">Запускаем рекламу — дорого и не всегда окупается</div><div class="oh">Вкладываем деньги, а результат нестабильный</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'status','no_system')">
+          <div class="oi">📱</div>
+          <div class="otw"><div class="om">Ведём соцсети, но без системы и результата</div><div class="oh">Публикуем, но подписчики не превращаются в клиентов</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'status','scale')">
+          <div class="oi">✅</div>
+          <div class="otw"><div class="om">Клиенты есть — хочу в 2–3 раза больше</div><div class="oh">Есть трафик, нужна система для масштаба</div></div>
+          <div class="ock"></div>
+        </div>
+      </div>
+      <button class="qnxt" id="n1" disabled onclick="go(2)">Продолжить →</button>
+    </div>
+
+    <!-- Q2: What to solve with AI -->
+    <div id="s2" class="step">
+      <div class="sbadge">Шаг 2 из 14</div>
+      <h2 class="sh2">Что хотите решить с помощью ИИ?</h2>
+      <p class="ssub">Выбери главный запрос — под него составим персональный план</p>
+      <div class="opts">
+        <div class="opt" onclick="selAuto(this,'ai_goal','clients','Наши студенты в среднем получают первые заявки через ИИ-контент уже на 2–3 неделе. Без бюджета на рекламу.',()=>go(14))">
+          <div class="oi">🎯</div>
+          <div class="otw"><div class="om">Привлекать больше клиентов и заявок</div><div class="oh">Сделать соцсети предсказуемым каналом продаж</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'ai_goal','time','Предприниматели, внедрившие ИИ в операционку, экономят в среднем 12–15 часов в неделю. Это почти два полных рабочих дня.',()=>go(14))">
+          <div class="oi">⏱️</div>
+          <div class="otw"><div class="om">Убрать рутину — освободить время на главное</div><div class="oh">Автоматизировать то, что сжирает время</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'ai_goal','content','ИИ-контент-маркетолог создаёт за день столько контента, сколько обычный SMM делает за неделю — и лучшего качества.',()=>go(14))">
+          <div class="oi">📱</div>
+          <div class="otw"><div class="om">Создавать контент, который реально продаёт</div><div class="oh">Не просто посты — системный контент-маркетинг</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'ai_goal','costs','Один человек с ИИ закрывает задачи SMM-щика, копирайтера и дизайнера. Наши студенты сокращали расходы на контент на 60–80%.',()=>go(14))">
+          <div class="oi">💰</div>
+          <div class="otw"><div class="om">Сократить расходы на команду и подрядчиков</div><div class="oh">Заменить дорогих специалистов системой</div></div>
+          <div class="ock"></div>
+        </div>
+      </div>
+      <div class="micro-insight"></div>
+    </div>
+
+    <!-- Q14: AI skill level -->
+    <div id="s14" class="step">
+      <div class="sbadge">Шаг 3 из 14</div>
+      <h2 class="sh2">Как оцениваешь свой уровень работы с ИИ?</h2>
+      <p class="ssub">Составим план именно под твой уровень — чтобы не было ни слишком легко, ни слишком сложно</p>
+      <div class="ai-scale">
+        <div class="ai-scale-labels"><span>Новичок</span><span>Эксперт</span></div>
+        <div class="ai-scale-btns">
+          <button class="ai-btn" onclick="pickScale(this,1)">1</button>
+          <button class="ai-btn" onclick="pickScale(this,2)">2</button>
+          <button class="ai-btn" onclick="pickScale(this,3)">3</button>
+          <button class="ai-btn" onclick="pickScale(this,4)">4</button>
+          <button class="ai-btn" onclick="pickScale(this,5)">5</button>
+        </div>
+        <div class="ai-scale-desc" id="ai-scale-desc">Выбери свой уровень</div>
+      </div>
+      <button class="qnxt" id="n14" disabled onclick="goNiche()">Продолжить →</button>
+    </div>
+
+    <!-- ANALYZING -->
+    <div id="s-load" class="step">
+      <div class="analyzing">
+        <div class="analyzing-ring"></div>
+        <div class="analyzing-title">Анализируем твой бизнес...</div>
+        <ul class="an-items" id="an-list">
+          <li class="an-item"><div class="an-dot"></div><span>Определяем нишу <b id="an-niche"></b></span></li>
+          <li class="an-item"><div class="an-dot"></div><span>Анализируем 847 кейсов Hugency Academy</span></li>
+          <li class="an-item"><div class="an-dot"></div><span>Считаем потенциал роста выручки с ИИ</span></li>
+          <li class="an-item"><div class="an-dot"></div><span>Формируем список инструментов под нишу</span></li>
+          <li class="an-item"><div class="an-dot"></div><span>Готовим персональную стратегию роста</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- WARMUP 1 -->
+    <div id="s-wu1" class="step">
+      <div class="wu-card">
+        <div class="wu-badge">🧪 Мы проверили · Реальные данные</div>
+        <h3 class="wu-h">ИИ ускоряет создание контента для <span class="g" id="wu1-n">ресторана</span> в <span class="g" id="wu1-x">10×</span></h3>
+        <p class="wu-t" id="wu1-desc">Протестировали с реальными предпринимателями — вот что получилось:</p>
+        <div class="cmp-row">
+          <div class="cmp-side cmp-bad">
+            <div class="cmp-lbl">❌ Без ИИ</div>
+            <div class="cmp-task" id="wu1-task">7 постов + Stories на неделю</div>
+            <div class="cmp-val" id="wu1-before">6 часов</div>
+          </div>
+          <div class="cmp-arr">→</div>
+          <div class="cmp-side cmp-good">
+            <div class="cmp-lbl">✅ С ИИ</div>
+            <div class="cmp-task">Тот же объём контента</div>
+            <div class="cmp-val" id="wu1-after">35 мин</div>
+          </div>
+        </div>
+        <div class="wu-insight">
+          <div class="wu-insight-ttl">💡 Что это значит для твоего бизнеса</div>
+          <ul class="wu-insight-list" id="wu1-insight"></ul>
+        </div>
+      </div>
+      <button class="qnxt" onclick="go(3)">Продолжить →</button>
+    </div>
+
+    <!-- Q3: Current revenue -->
+    <div id="s3" class="step">
+      <div class="sbadge">Шаг 3 из 14</div>
+      <h2 class="sh2">Текущая выручка бизнеса?</h2>
+      <p class="ssub">Рассчитаем реальный потенциал роста с ИИ‑контентом</p>
+      <div class="opts">
+        <div class="opt" onclick="sel(this,'rev_now','lt100')"><div class="oi">🌱</div><div class="otw"><div class="om">До 100 000 ₽/мес</div><div class="oh">Только набираю обороты</div></div><div class="ock"></div></div>
+        <div class="opt" onclick="sel(this,'rev_now','100-300')"><div class="oi">📈</div><div class="otw"><div class="om">100 000 – 300 000 ₽/мес</div><div class="oh">Стабильный небольшой бизнес</div></div><div class="ock"></div></div>
+        <div class="opt" onclick="sel(this,'rev_now','300-700')"><div class="oi">💰</div><div class="otw"><div class="om">300 000 – 700 000 ₽/мес</div><div class="oh">Устойчивый бизнес, хочу рост</div></div><div class="ock"></div></div>
+        <div class="opt" onclick="sel(this,'rev_now','700-2m')"><div class="oi">💎</div><div class="otw"><div class="om">700 000 – 2 000 000 ₽/мес</div><div class="oh">Серьёзный бизнес, нужен масштаб</div></div><div class="ock"></div></div>
+        <div class="opt" onclick="sel(this,'rev_now','2m+')"><div class="oi">🏆</div><div class="otw"><div class="om">Больше 2 000 000 ₽/мес</div><div class="oh">Крупный бизнес</div></div><div class="ock"></div></div>
+      </div>
+      <button class="qnxt" id="n3" disabled onclick="go(4)">Продолжить →</button>
+    </div>
+
+    <!-- Q4: Target revenue -->
+    <div id="s4" class="step">
+      <div class="sbadge">Шаг 4 из 14</div>
+      <h2 class="sh2">Цель — какую выручку хочешь?</h2>
+      <p class="ssub">Укажи цель на ближайшие 3–6 месяцев</p>
+      <div class="opts">
+        <div class="opt" onclick="sel(this,'rev_goal','300-700')"><div class="oi">🎯</div><div class="otw"><div class="om">300 000 – 700 000 ₽/мес</div></div><div class="ock"></div></div>
+        <div class="opt" onclick="sel(this,'rev_goal','700-2m')"><div class="oi">🚀</div><div class="otw"><div class="om">700 000 – 2 000 000 ₽/мес</div></div><div class="ock"></div></div>
+        <div class="opt" onclick="sel(this,'rev_goal','2-5m')"><div class="oi">💫</div><div class="otw"><div class="om">2 000 000 – 5 000 000 ₽/мес</div></div><div class="ock"></div></div>
+        <div class="opt" onclick="sel(this,'rev_goal','5m+')"><div class="oi">🏆</div><div class="otw"><div class="om">Больше 5 000 000 ₽/мес</div></div><div class="ock"></div></div>
+      </div>
+      <button class="qnxt" id="n4" disabled onclick="goConfirm()">Продолжить →</button>
+    </div>
+
+    <!-- PROFILE CONFIRMATION -->
+    <div id="s-confirm" class="step">
+      <div class="sbadge">✓ Проверка профиля</div>
+      <h2 class="sh2">Мы правильно тебя поняли?</h2>
+      <p class="ssub">Проверь — на основе этого составим персональный план</p>
+      <div class="confirm-box" id="confirm-box"></div>
+      <button class="qnxt" onclick="goWu(2)">Да, всё верно →</button>
+      <button class="btn-ghost" onclick="goBack()">Изменить ответы</button>
+    </div>
+
+    <!-- WARMUP 2 -->
+    <div id="s-wu2" class="step">
+      <div class="wu-card">
+        <div class="wu-badge">🔥 Реальные результаты</div>
+        <h3 class="wu-h">Предприниматели в нише <span class="g" id="wu2-n">«Ресторан / Кафе»</span> увеличивают выручку с AI на <span class="g">+40–120%</span></h3>
+        <p class="wu-t">Это не про «стать блогером». Это про привлечение реальных клиентов через органический трафик — без огромных вложений в рекламу.</p>
+        <div class="case-box">
+          <div class="cav" id="wu2-av">👩‍💼</div>
+          <div class="ci">
+            <div class="cn" id="wu2-nm">Елена · Краснодар</div>
+            <div class="cr" id="wu2-r">+420 000 ₽/мес</div>
+            <div class="ct" id="wu2-t">Студия ногтей. AI-контент привёл 47 новых клиентов за месяц — без платной рекламы.</div>
+          </div>
+        </div>
+      </div>
+      <button class="qnxt" onclick="go(5)">Продолжить →</button>
+    </div>
+
+    <!-- Q5: Goal -->
+    <div id="s5" class="step">
+      <div class="sbadge">Шаг 5 из 14</div>
+      <h2 class="sh2">Какой результат ты хочешь получить через 3 месяца?</h2>
+      <p class="ssub">Выбери главную цель — сделаем план именно под неё, не общий</p>
+      <div class="opts">
+        <div class="opt" onclick="sel(this,'goal','clients')">
+          <div class="oi">🎯</div>
+          <div class="otw"><div class="om">Постоянный поток новых клиентов</div><div class="oh">Соцсети как предсказуемый канал заявок — без рекламного бюджета</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'goal','scale')">
+          <div class="oi">📈</div>
+          <div class="otw"><div class="om">Рост выручки без роста затрат</div><div class="oh">Больше продаж без найма маркетолога и увеличения рекламы</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'goal','brand')">
+          <div class="oi">🏷️</div>
+          <div class="otw"><div class="om">Стать известным брендом в нише</div><div class="oh">Клиенты приходят сами — потому что знают и доверяют</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'goal','automate')">
+          <div class="oi">⚙️</div>
+          <div class="otw"><div class="om">Автоматизировать маркетинг</div><div class="oh">Контент выходит регулярно без ручного труда и постоянного контроля</div></div>
+          <div class="ock"></div>
+        </div>
+      </div>
+      <button class="qnxt" id="n5" disabled onclick="go(9)">Продолжить →</button>
+    </div>
+
+    <!-- Q9: Marketing spend -->
+    <div id="s9" class="step">
+      <div class="sbadge">Шаг 6 из 14</div>
+      <h2 class="sh2">Сколько денег ушло на маркетинг без результата?</h2>
+      <p class="ssub">Честно — это поможет точнее рассчитать потенциальную экономию</p>
+      <div class="opts">
+        <div class="opt" onclick="selAuto(this,'mkt_spend','lt500','$500 — стоимость одного месяца работы SMM-щика. С ИИ те же задачи закрываются за $20–30 в месяц на инструменты.',()=>go(10))">
+          <div class="oi">💸</div>
+          <div class="otw"><div class="om">До $500 — пробовал(а) разное</div><div class="oh">Небольшие вложения без системы</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'mkt_spend','500-2k','Нестабильность — главная проблема маркетинга без системы. ИИ-контент даёт предсказуемый поток — вы знаете что, когда и зачем публикуете.',()=>go(10))">
+          <div class="oi">💵</div>
+          <div class="otw"><div class="om">$500–2 000 — результат был, но нестабильный</div><div class="oh">Иногда работало, иногда нет</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'mkt_spend','gt2k','Именно поэтому наши студенты окупают стоимость обучения уже в первый месяц — убирая расходы на подрядчиков.',()=>go(10))">
+          <div class="oi">💔</div>
+          <div class="otw"><div class="om">Больше $2 000 — и это реально больно</div><div class="oh">Потрачено много, а системного роста нет</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'mkt_spend','dontcount','Значит сумма точно серьёзная. С ИИ вы получите тот же результат за 10–20% прежнего бюджета.',()=>go(10))">
+          <div class="oi">🙈</div>
+          <div class="otw"><div class="om">Предпочитаю не считать 😅</div><div class="oh">Знаю что много, считать страшно</div></div>
+          <div class="ock"></div>
+        </div>
+      </div>
+      <div class="micro-insight"></div>
+    </div>
+
+    <!-- Q10: Content time (scale) -->
+    <div id="s10" class="step">
+      <div class="sbadge">Шаг 7 из 14</div>
+      <h2 class="sh2">Сколько времени в неделю уходит на создание контента?</h2>
+      <p class="ssub">Оцени от 1 до 5, где 1 — «почти не занимаюсь», 5 — «трачу огромное время»</p>
+      <div class="scale-wrap">
+        <div class="scale-btns" id="scale-btns">
+          <button class="scale-btn" onclick="pickTimeScale(1)">1</button>
+          <button class="scale-btn" onclick="pickTimeScale(2)">2</button>
+          <button class="scale-btn" onclick="pickTimeScale(3)">3</button>
+          <button class="scale-btn" onclick="pickTimeScale(4)">4</button>
+          <button class="scale-btn" onclick="pickTimeScale(5)">5</button>
+        </div>
+        <div class="scale-labels">
+          <span>почти не занимаюсь</span>
+          <span>трачу огромное время</span>
+        </div>
+      </div>
+      <button class="qnxt" id="n10" disabled onclick="go(6)">Продолжить →</button>
+    </div>
+
+    <!-- Q6: Enter business niche (entrepreneurs only) -->
+    <div id="s6" class="step">
+      <div class="sbadge">Шаг 8 из 14</div>
+      <h2 class="sh2">Опиши нишу своего бизнеса</h2>
+      <p class="ssub">Напиши точнее — сделаем анализ именно под твой продукт и аудиторию</p>
+      <input class="niche-inp" type="text" id="niche-text" placeholder="Например: студия маникюра, интернет-магазин одежды..." oninput="chkNiche()">
+      <div class="niche-tags">
+        <div class="ntag" onclick="setTag('Кафе / ресторан')">🍽️ Кафе / ресторан</div>
+        <div class="ntag" onclick="setTag('Студия красоты')">💅 Студия красоты</div>
+        <div class="ntag" onclick="setTag('Интернет-магазин')">🛍️ Интернет-магазин</div>
+        <div class="ntag" onclick="setTag('Строительство / ремонт')">🏗️ Строительство</div>
+        <div class="ntag" onclick="setTag('Медицинская клиника')">🏥 Медицина</div>
+        <div class="ntag" onclick="setTag('Фитнес-клуб / студия')">💪 Фитнес</div>
+        <div class="ntag" onclick="setTag('Образование / курсы')">🎓 Образование</div>
+        <div class="ntag" onclick="setTag('Юридические услуги')">⚖️ Юриспруденция</div>
+        <div class="ntag" onclick="setTag('Туристическое агентство')">✈️ Туризм</div>
+      </div>
+      <button class="qnxt" id="n6" disabled onclick="go(7)">Продолжить →</button>
+    </div>
+
+    <!-- Q7: AI readiness -->
+    <div id="s7" class="step">
+      <div class="sbadge">Шаг 9 из 14</div>
+      <h2 class="sh2">Готовы ли вы к тому, как ИИ меняет рынок?</h2>
+      <p class="ssub">Честная оценка ситуации поможет составить реалистичный план</p>
+      <div class="opts">
+        <div class="opt" onclick="selAuto(this,'ai_ready','behind','Хорошая новость: те, кто начинает сейчас — ещё успевают стать первыми в своей нише. Через год это окно закроется.',()=>go(8))">
+          <div class="oi">😰</div>
+          <div class="otw"><div class="om">Не очень — конкуренты уже внедряют, я отстаю</div><div class="oh">Вижу что другие уже используют ИИ</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'ai_ready','worried','Это нормально. Главное — начать с одного конкретного навыка, а не охватывать всё сразу. Именно так построено наше обучение.',()=>go(8))">
+          <div class="oi">😟</div>
+          <div class="otw"><div class="om">Немного волнуюсь — всё меняется слишком быстро</div><div class="oh">Темп изменений пугает</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'ai_ready','partial','Самая честная позиция. Именно такие предприниматели получают максимум от обучения — они уже понимают проблему.',()=>go(8))">
+          <div class="oi">🤔</div>
+          <div class="otw"><div class="om">Частично готов(а) — но чувствую, что могу отстать</div><div class="oh">Слежу за трендами, но ещё не внедряю</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'ai_ready','ready','Отлично. Следующий шаг — не просто следить, а внедрить и получить конкретный результат в деньгах.',()=>go(8))">
+          <div class="oi">💪</div>
+          <div class="otw"><div class="om">Уверен(а) в своих позициях — слежу за трендами</div><div class="oh">В теме, готов(а) двигаться дальше</div></div>
+          <div class="ock"></div>
+        </div>
+      </div>
+      <div class="micro-insight"></div>
+    </div>
+
+    <!-- Q8: Fears of falling behind -->
+    <div id="s8" class="step">
+      <div class="sbadge">Шаг 10 из 14</div>
+      <h2 class="sh2">Что больше всего пугает в отставании от конкурентов?</h2>
+      <p class="ssub">Выбери главный страх — под него покажем решение</p>
+      <div class="opts">
+        <div class="opt" onclick="selAuto(this,'fear_behind','speed','Компании с ИИ-контентом публикуют в 4–7 раз больше материала при тех же затратах. Это напрямую влияет на охват и заявки.',()=>goInsight())">
+          <div class="oi">⚡</div>
+          <div class="otw"><div class="om">Они делают контент быстрее и дешевле — я не успеваю</div><div class="oh">Скорость производства контента у них выше</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'fear_behind','clients','73% покупателей говорят, что активность бренда в соцсетях влияет на решение о покупке. ИИ-контент решает этот вопрос.',()=>goInsight())">
+          <div class="oi">😔</div>
+          <div class="otw"><div class="om">Теряю клиентов, которые уходят к более «современным»</div><div class="oh">Клиенты выбирают тех, кто активнее</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'fear_behind','team','Умнее обучить существующую команду, чем потом нанимать новую с нуля. ИИ делает каждого сотрудника в 3–5 раз продуктивнее.',()=>goInsight())">
+          <div class="oi">💸</div>
+          <div class="otw"><div class="om">Трачу деньги на команду, которую скоро заменит ИИ</div><div class="oh">Держу людей, которых обгонит технология</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="selAuto(this,'fear_behind','aware','Именно это осознание — первый шаг. Большинство начинают действовать только когда уже поздно. Вы — нет.',()=>goInsight())">
+          <div class="oi">🧐</div>
+          <div class="otw"><div class="om">Пока ничего — но понимаю, что нужно разобраться</div><div class="oh">Спокоен(а), но чувствую что надо действовать</div></div>
+          <div class="ock"></div>
+        </div>
+      </div>
+      <div class="micro-insight"></div>
+    </div>
+
+    <!-- INSIGHT CARD -->
+    <div id="s-insight" class="step">
+      <div class="insight-card">
+        <span class="ins-icon">💡</span>
+        <h3 class="ins-h">Эти барьеры решаемы — и быстро</h3>
+        <p class="ins-t">Каждый из них — не про лень и не про нехватку способностей. Это просто отсутствие системы и готового инструмента. Предприниматели, которые внедрили AI-контент, говорят одно: «Жалею, что не начал(а) раньше».</p>
+        <div class="ins-quote">
+          <p>«Я думала, что это сложно и долго. Первый пост с ИИ написала за 7 минут — и он привёл 3 новых клиента»</p>
+          <span>— Марина К., студия маникюра, Москва</span>
+        </div>
+      </div>
+      <button class="qnxt" onclick="go(12)">Понятно, продолжить →</button>
+    </div>
+
+    <!-- Q12: Time commitment -->
+    <div id="s12" class="step">
+      <div class="sbadge">Шаг 11 из 14</div>
+      <h2 class="sh2">Сколько времени в неделю готов(а) посвящать внедрению AI?</h2>
+      <p class="ssub">Подберём формат и темп — без перегрузки</p>
+      <div class="opts">
+        <div class="opt" onclick="sel(this,'time_week','30min')">
+          <div class="oi">⚡</div>
+          <div class="otw"><div class="om">30–60 минут</div><div class="oh">Хочу минимальные вложения времени</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'time_week','1-2h')">
+          <div class="oi">🎯</div>
+          <div class="otw"><div class="om">1–2 часа</div><div class="oh">Готов(а) уделять немного времени в неделю</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'time_week','3-5h')">
+          <div class="oi">🚀</div>
+          <div class="otw"><div class="om">3–5 часов</div><div class="oh">Хочу быстрее внедрить и получить результат</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'time_week','5h+')">
+          <div class="oi">💪</div>
+          <div class="otw"><div class="om">Больше 5 часов</div><div class="oh">Готов(а) серьёзно погрузиться</div></div>
+          <div class="ock"></div>
+        </div>
+      </div>
+      <button class="qnxt" id="n12" disabled onclick="go(13)">Продолжить →</button>
+    </div>
+
+    <!-- Q13: Learning style -->
+    <div id="s13" class="step">
+      <div class="sbadge">Шаг 12 из 14</div>
+      <h2 class="sh2">Как предпочитаешь внедрять новое в бизнес?</h2>
+      <p class="ssub">Подберём подходящий формат поддержки</p>
+      <div class="opts">
+        <div class="opt" onclick="sel(this,'learn_style','self')">
+          <div class="oi">📖</div>
+          <div class="otw"><div class="om">Самостоятельно по инструкциям</div><div class="oh">Дайте чёткий план — разберусь сам(а)</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'learn_style','mentor')">
+          <div class="oi">🤝</div>
+          <div class="otw"><div class="om">С наставником и поддержкой</div><div class="oh">Хочу, чтобы эксперт направлял и отвечал на вопросы</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'learn_style','group')">
+          <div class="oi">👥</div>
+          <div class="otw"><div class="om">В группе с другими предпринимателями</div><div class="oh">Нравится учиться в сообществе, видеть чужие результаты</div></div>
+          <div class="ock"></div>
+        </div>
+        <div class="opt" onclick="sel(this,'learn_style','results')">
+          <div class="oi">✅</div>
+          <div class="otw"><div class="om">Неважно — главное конкретный результат</div><div class="oh">Как скажут, лишь бы работало в бизнесе</div></div>
+          <div class="ock"></div>
+        </div>
+      </div>
+      <button class="qnxt" id="n13" disabled onclick="goForm()">Узнать потенциал бизнеса →</button>
+    </div>
+
+    <!-- SCORE -->
+    <div id="s-score" class="step">
+      <div id="score-loading" class="score-loading">
+        <div class="sl-spinner"></div>
+        <div class="sl-pct-big" id="sl-pct-big">0%</div>
+        <div class="sl-stage" id="sl-stage">Инициализация...</div>
+        <div class="sl-bar-wrap"><div class="sl-bar-fill" id="sl-bar-fill"></div></div>
+        <div class="sl-hint">анализируем 847 кейсов Hugency Academy</div>
+      </div>
+      <div id="score-content" style="display:none;opacity:0">
+        <div class="score-wrap">
+          <div class="score-ring-wrap">
+            <svg width="130" height="130" viewBox="0 0 130 130">
+              <defs>
+                <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#d4286a"/>
+                  <stop offset="100%" stop-color="#8b5cf6"/>
+                </linearGradient>
+              </defs>
+              <circle class="score-ring-bg" cx="65" cy="65" r="54"/>
+              <circle class="score-ring-fill" id="score-ring" cx="65" cy="65" r="54"/>
+            </svg>
+            <div class="score-pct" id="score-pct">0%</div>
+          </div>
+          <div class="score-lbl">потенциал</div>
+          <h2 class="score-title" id="score-title">Потенциал бизнеса готов!</h2>
+          <p class="score-sub" id="score-sub">На основе 847 кейсов Hugency Academy — вот что мы нашли для твоего бизнеса:</p>
+          <div class="score-tags" id="score-tags"></div>
+        </div>
+        <button class="qnxt" onclick="showScr('scr-ty')">Получить консультацию →</button>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div id="s-form" class="step">
+      <div class="sbadge">Шаг 13 · Финал</div>
+      <h2 class="sh2">Один шаг — и анализ бизнеса готов</h2>
+      <p class="ssub">Введи контакты — покажем реальный потенциал ниши <b id="f-niche"></b> прямо сейчас. Эксперт напишет с готовым планом.</p>
+      <div class="fg"><label class="fl">Твоё имя</label><input class="fi" id="f-name" type="text" placeholder="Как тебя зовут?" oninput="chkForm()"></div>
+      <div class="fg"><label class="fl">Телефон или Telegram / Instagram</label><input class="fi" id="f-contact" type="text" placeholder="+7 999 ... или @username" oninput="chkForm()"></div>
+      <button class="qnxt" id="f-btn" disabled onclick="submitAndScore()">Показать анализ бизнеса →</button>
+      <p class="pnote">🔒 Конфиденциально · Без спама · Один звонок от эксперта</p>
+    </div>
+  </div>
+
+  <!-- ══ THANK YOU ══ -->
+  <div id="scr-ty" class="scr">
+    <div class="ty-check">✓</div>
+    <h2 class="ty-h">Заявка принята! 🎉</h2>
+    <p class="ty-s">Эксперт по AI-маркетингу свяжется в течение 2 часов. Пока ждёшь — забери подарок 👇</p>
+    <div class="offer-box">
+      <div class="offer-tag">🎁 Специальное предложение</div>
+      <div class="offer-h">Готовый контент‑план на 30&nbsp;дней под нишу <span id="ty-niche"></span></div>
+      <ul class="offer-items">
+        <li><b>✓</b>5 готовых тем для Reels и постов под твой бизнес</li>
+        <li><b>✓</b>Хуки, сценарии, хэштеги — сразу к публикации</li>
+        <li><b>✓</b>Промты ChatGPT — генерируй контент за 5 минут</li>
+        <li><b>✓</b>ТОП‑5 ИИ‑инструментов для привлечения клиентов</li>
+      </ul>
+      <div class="offer-timer">⏰ Предложение действует: <span class="timer-val" id="timer">23:59:47</span></div>
+      <div class="offer-price"><span class="offer-old">99$</span><span class="offer-new">15$</span></div>
+      <a href="https://app.lava.top/products/f711a208-9c3a-4c16-b4ba-b44160f94571" class="offer-cta" target="_blank" rel="noopener">Забрать контент‑план за 15$ →</a>
+    </div>
+    <span class="ty-skip" id="ty-skip" onclick="showDownsell()">Нет, спасибо — подожду звонка</span>
+    <div id="downsell-block" style="display:none;margin-top:18px">
+      <div class="downsell-box">
+        <div class="downsell-tag">Подожди!</div>
+        <p class="downsell-h">Забери бесплатно:</p>
+        <p class="downsell-t">Полезная информация и фишки при создании ИИ‑контента для бизнеса</p>
+        <a href="https://t.me/hugency_academy" class="downsell-cta" target="_blank" rel="noopener">Забрать бесплатно в Telegram →</a>
+        <span class="ty-skip2" onclick="showFinalSkip()">Нет, не нужно</span>
+      </div>
+    </div>
+    <p id="skip-msg" style="display:none;font-size:13px;color:var(--muted);margin-top:8px">Хорошо! Эксперт напишет в ближайшее время 🙌</p>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────
+const NICHES=[
+  {id:'beauty',em:'💄',n:'Студия красоты',gen:'Студии красоты',d:'Ногти, волосы, косметология'},
+  {id:'restaurant',em:'🍽️',n:'Ресторан / Кафе',gen:'Ресторана / Кафе',d:'Общепит, доставка, фастфуд'},
+  {id:'fitness',em:'🏋️',n:'Фитнес / Спорт',gen:'Фитнеса / Спорта',d:'Клуб, студия, тренер, здоровье'},
+  {id:'shop',em:'🛍️',n:'Магазин / E-commerce',gen:'Магазина / E-commerce',d:'Офлайн или онлайн продажи'},
+  {id:'design',em:'🎨',n:'Дизайн проекты',gen:'Дизайн проектов',d:'Интерьер, графика, веб-дизайн'},
+  {id:'other',em:'🌟',n:'Другая сфера',gen:'Другой сферы',d:'Своя уникальная ниша'},
+];
+const ND={
+  restaurant:{earn:'+45–90%',pct:83,hook:'300 новых гостей за месяц через AI-контент',v:'16.2 млн',l:'234К',s:'1345',ttl:'Ресторан + ИИ = очередь из клиентов каждый день',wu1x:'10×',wu1task:'7 постов + Stories на неделю',wu1before:'6 часов',wu1after:'35 мин',wu1insight:['Контент о кухне и атмосфере привлекает гостей эффективнее платной рекламы','Рестораны с активным AI-контентом повышают средний чек на 30–40% через ожидания','Еженедельный контент-план = поток новых гостей без менеджера по маркетингу'],wu2:{av:'👩',nm:'Гузалия · Россия',r:'5 клиентов + 3 коллаборации',t:'Начала публиковать AI-Reels о кухне — за месяц 5 новых корпоративных заказов и рост брони на выходные при вдвое меньших затратах на рекламу.'},ex:[{tp:'Reels',tx:'Как приготовить топ-блюдо за 60 секунд — AI помог',v:'287К'},{tp:'Карусель',tx:'5 блюд, которые точно стоит попробовать',v:'134К'},{tp:'Story',tx:'День из жизни нашей кухни — AI монтаж',v:'56К'}],wu1earn:'+45%',tags:['Ресторан + ИИ','Трафик ×3','Новые гости']},
+  beauty:{earn:'+50–110%',pct:88,hook:'47 клиентов за месяц без платной рекламы',v:'13 млн',l:'143К',s:'3984',ttl:'Студия красоты + ИИ = очередь на 2 месяца вперёд',wu1x:'4×',wu1task:'Снять, смонтировать и опубликовать Reels',wu1before:'3 часа',wu1after:'45 мин',wu1insight:['Студии с регулярным AI-контентом получают до 70% новых клиентов из соцсетей','Reels с работами мастеров набирают в 3–5 раз больше охвата, чем фото','Постоянный контент = полная запись без затрат на рекламный бюджет'],wu2:{av:'👩',nm:'Анель · Астана',r:'$2 000+/мес',t:'Reels с работами мастеров стали регулярными — запись заполнилась на неделю вперёд при рекламном бюджете в 3 раза ниже прежнего.'},ex:[{tp:'Reels',tx:'Как маникюр стал вирусным благодаря AI',v:'445К'},{tp:'Карусель',tx:'До/После: 5 работ наших мастеров',v:'201К'},{tp:'Story',tx:'47 новых клиентов за месяц — как мы это сделали',v:'38К'}],wu1earn:'+50%',tags:['Бьюти + ИИ','47 клиентов/мес','Полная запись']},
+  shop:{earn:'+40–100%',pct:80,hook:'Как AI помог продать 100 единиц за день',v:'7.5 млн',l:'194К',s:'2834',ttl:'Магазин + ИИ = рост продаж без рекламного бюджета',wu1x:'7×',wu1task:'Карточки товаров + Reels для магазина',wu1before:'5 часов',wu1after:'40 мин',wu1insight:['Видео-контент о товарах конвертирует в 2–3 раза лучше статичных фото','AI-описания и карточки товаров повышают конверсию без найма копирайтера','Магазины с регулярным Reels-контентом получают органический трафик без рекламы'],wu2:{av:'👩',nm:'Лаура Герц · Алмата',r:'$2 000+/мес',t:'Начала снимать AI-Reels с распаковками — продажи выросли на 40% за месяц, при этом бюджет на рекламу остался прежним.'},ex:[{tp:'Reels',tx:'Как AI помог продать 100 единиц за 1 день',v:'234К'},{tp:'Карусель',tx:'ТОП-5 образов этого сезона — AI стилист',v:'97К'},{tp:'Story',tx:'Лучшие покупки месяца — AI обзор',v:'28К'}],wu1earn:'+40%',tags:['Магазин + ИИ','Конверсия ×2']},
+  fitness:{earn:'+60–120%',pct:90,hook:'Фитнес-клуб набрал 120 новых членов через AI',v:'12 млн',l:'207К',s:'691',ttl:'Фитнес + ИИ = полная запись без дорогой рекламы',wu1x:'5×',wu1task:'Создать и оформить тренировочный Reels',wu1before:'4 часа',wu1after:'50 мин',wu1insight:['Контент с реальными трансформациями клиентов — самая сильная реклама для фитнеса','Клубы с AI-контентом заполняют запись без скидок и акций','Образовательные Reels о тренировках создают экспертность и очередь из клиентов'],wu2:{av:'👨',nm:'Мартин Миллер',r:'Маркетолог → AI-продюсер',t:'Клуб начал выпускать Reels с трансформациями клиентов — за 6 недель около 40 новых членов через органику, расходы на маркетинг сократились вдвое.'},ex:[{tp:'Reels',tx:'Тренировка с AI-тренером: 7 минут жир сжигается',v:'267К'},{tp:'Карусель',tx:'Трансформация тела за 30 дней: реальный кейс',v:'134К'},{tp:'Story',tx:'120 новых членов за 6 недель — как мы сделали это',v:'52К'}],wu1earn:'+60%',tags:['Фитнес + ИИ','120 членов','Полная запись']},
+  medical:{earn:'+40–90%',pct:82,hook:'Клиника увеличила запись на 60% с AI',v:'10.2 млн',l:'87К',s:'1.4К',ttl:'Медицина + ИИ = доверие и полная запись',wu1x:'8×',wu1task:'Образовательный контент о процедуре',wu1before:'4 часа',wu1after:'30 мин',wu1insight:['Образовательный контент о процедурах снимает страх и приводит новых пациентов','Клиники с активным контентом получают до 60% больше входящих заявок из соцсетей','AI-ускорение = врач тратит 30 минут в неделю вместо целого дня на маркетинг'],wu2:{av:'👩',nm:'Айгюн · Казахстан',r:'более $2 000',t:'Стала регулярно выпускать образовательный контент о процедурах — входящих заявок стало заметно больше, клиенты приходят уже прогретыми.'},ex:[{tp:'Reels',tx:'Как проходит процедура у нас — AI монтаж',v:'156К'},{tp:'Карусель',tx:'5 признаков что пора к врачу — полезный контент',v:'78К'},{tp:'Story',tx:'Пациент через 3 месяца — реальный результат',v:'21К'}],wu1earn:'+40%',tags:['Медицина + ИИ','Доверие','Полная запись']},
+  education:{earn:'+50–100%',pct:87,hook:'Наш пример — более 2 000 заявок через AI-контент за 3 месяца',v:'2.5 млн',l:'132К',s:'800',ttl:'Образование + ИИ = масштаб без команды',wu1x:'15×',wu1task:'Программа + лендинг + контент для набора',wu1before:'8 часов',wu1after:'30 мин',wu1insight:['AI сокращает время на создание учебных материалов в 15 раз — масштаб без найма','Контент-маркетинг с кейсами студентов привлекает новых учеников без рекламы','Школы с регулярным AI-контентом набирают потоки в 3 раза эффективнее'],wu2:{av:'👩',nm:'Лилит · Ереван',r:'+100 000 ₽ за 1 неделю',t:'Начала показывать кейсы студентов в Reels — набор нового потока закрылся быстрее обычного, при этом затраты на рекламу снизились примерно вдвое.'},ex:[{tp:'Reels',tx:'Студент с 0 до 100К за 60 дней — реальный кейс',v:'198К'},{tp:'Карусель',tx:'Программа курса за 5 слайдов — AI дизайн',v:'88К'},{tp:'Story',tx:'200 новых студентов без рекламы — наш метод',v:'31К'}],wu1earn:'+50%',tags:['Образование + ИИ','Набор ×3']},
+  travel:{earn:'+35–75%',pct:78,hook:'Турагентство продало туры на 2М с AI',v:'4.3 млн',l:'228К',s:'1440',ttl:'Туризм + ИИ = продажи туров без холодных звонков',wu1x:'9×',wu1task:'Контент-пакет для одного направления',wu1before:'5 часов',wu1after:'35 мин',wu1insight:['AI-Reels о направлениях вдохновляют клиентов и сокращают цикл принятия решения','Агентства с регулярным контентом получают входящие заявки вместо холодного обзвона','Один качественный тур-Reels может привлечь клиентов на несколько месяцев вперёд'],wu2:{av:'👩',nm:'Екатерина · Сеул',r:'$1 000 + 4 бренд-заказа',t:'Стала снимать Reels о направлениях — клиенты начали сами писать в директ, несколько заявок на туры пришло уже в первые 2 недели.'},ex:[{tp:'Reels',tx:'Мечты о Бали: AI-трейлер тура за 60 сек',v:'167К'},{tp:'Карусель',tx:'ТОП-5 направлений лета 2025 — с ценами',v:'74К'},{tp:'Story',tx:'Клиент вернулся из Таиланда — его отзыв',v:'19К'}],wu1earn:'+35%',tags:['Туризм + ИИ','Продажи ×2']},
+  design:{earn:'+45–95%',pct:85,hook:'Дизайн-студия привлекла 35 проектов за месяц через AI',v:'3.8 млн',l:'83К',s:'2304',ttl:'Дизайн + ИИ = полный портфель без холодных продаж',wu1x:'8×',wu1task:'Презентация проекта + Reels для портфолио',wu1before:'4 часа',wu1after:'30 мин',wu1insight:['AI-визуализации объясняют клиенту концепцию до начала работы — и сокращают правки на 70%','Дизайнеры с активным контентом получают проекты в 4–5 раз чаще тех, кто работает только по сарафану','Реальные проекты в Reels привлекают клиентов лучше, чем любое портфолио на сайте'],wu2:{av:'👩',nm:'Лилит · Ереван',r:'+100 000 ₽ за 1 неделю',t:'Начала снимать Reels с процессом работы над проектами — входящих запросов стало больше, первый крупный контракт закрыла уже в первую неделю.'},ex:[{tp:'Reels',tx:'Процесс создания интерьера — AI визуализация',v:'312К'},{tp:'Карусель',tx:'До/После: офис после нашего дизайна',v:'148К'},{tp:'Story',tx:'Клиент выбрал наш проект за 10 минут — почему',v:'34К'}],wu1earn:'+45%',tags:['Дизайн + ИИ','35 проектов','Портфель без рекламы']},
+  other:{earn:'+40–90%',pct:80,hook:'Любой бизнес растёт с AI-контентом',v:'156К',l:'8.7К',s:'3.9К',ttl:'Твой бизнес + ИИ = рост без увеличения команды',wu1x:'9×',wu1task:'Стратегия + первый месяц контента',wu1before:'4 часа',wu1after:'25 мин',wu1insight:['AI сокращает время на маркетинг в 9 раз — это время возвращается в развитие бизнеса','Регулярный контент строит доверие аудитории — клиенты приходят прогретыми','Любой бизнес с AI-контентом получает новых клиентов уже в первые 2–4 недели'],wu2:{av:'👩',nm:'Лаура Герц · Алмата',r:'$2 000+/мес',t:'Начала регулярно вести контент с AI — первые входящие заявки появились через 2–3 недели, клиенты приходят прогретыми и уже готовы покупать.'},ex:[{tp:'Reels',tx:'Как мой бизнес вырос с AI — честная история',v:'156К'},{tp:'Карусель',tx:'5 AI-инструментов для малого бизнеса',v:'88К'},{tp:'Story',tx:'Первые клиенты через AI-контент за 2 недели',v:'22К'}],wu1earn:'+40%',tags:['Бизнес + ИИ','Рост без рекламы']},
+};
+
+// ─── STATE ───────────────────────────────────────
+let A={};
+let MA={bar:[]};
+let NID=null;
+let nicheText='';
+let hist=[];
+let timerI=null;
+
+// ─── INIT ────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  buildGrid();
+  initStars();
+  startTimer();
+  startQuiz();
+});
+
+function buildGrid(){
+  const g=document.getElementById('ngrid');
+  if(!g) return;
+  NICHES.forEach(n=>{
+    const c=document.createElement('div');
+    c.className='nc';
+    c.innerHTML=`<span class="nc-em">${n.em}</span><div class="nc-n">${n.n}</div><div class="nc-d">${n.d}</div>`;
+    c.onclick=()=>pickNiche(c,n.id);
+    g.appendChild(c);
+  });
+}
+
+// ─── VIDEO ───────────────────────────────────────
+function playVid(){
+  const v=document.getElementById('vid');
+  v.muted=false; v.play().catch(()=>{});
+  document.getElementById('vid-ph').classList.add('gone');
+}
+
+// ─── NAVIGATION ──────────────────────────────────
+function startQuiz(){
+  showScr('scr-quiz');
+  showStep('s1');
+  updProg(1,14);
+}
+
+function goNiche(){
+  hist.push(currentStep());
+  showStep('s-niche');
+  updProg(4,14);
+  updateBack();
+}
+
+const PROG_POS={1:1,2:2,14:3,3:5,4:6,5:7,9:8,10:9,7:10,8:11,12:12,13:13};
+function go(n){
+  if(n===6&&NID){const niche=NICHES.find(x=>x.id===NID);nicheText=niche?niche.n:'';A.nicheText=nicheText;n=7;}
+  hist.push(currentStep());
+  showStep('s'+n);
+  updProg(PROG_POS[n]||n,14);
+  updateBack();
+}
+
+function goWu(n){
+  hist.push(currentStep());
+  fillWu(n);
+  showStep(n===1?'s-wu1':'s-wu2');
+  updateBack();
+}
+
+function goAnalyzing(){
+  hist.push(currentStep());
+  showStep('s-load');
+  updateBack();
+  const nd=NICHES.find(x=>x.id===NID);
+  document.getElementById('an-niche').textContent=nd?nd.n:'';
+  const items=document.querySelectorAll('.an-item');
+  items.forEach(i=>{i.classList.remove('vis','done')});
+  setTimeout(()=>{items[0].classList.add('vis')},300);
+  setTimeout(()=>{items[0].classList.add('done');items[1].classList.add('vis')},2300);
+  setTimeout(()=>{items[1].classList.add('done');items[2].classList.add('vis')},4600);
+  setTimeout(()=>{items[2].classList.add('done');items[3].classList.add('vis')},6900);
+  setTimeout(()=>{items[3].classList.add('done');items[4].classList.add('vis')},9100);
+  setTimeout(()=>{items[4].classList.add('done')},11000);
+  setTimeout(()=>goWu(1),11200);
+}
+
+function goScore(){
+  hist.push(currentStep());
+  showStep('s-score');
+  document.getElementById('pfill').style.width='100%';
+  const d=NID?ND[NID]:null;
+  const targetPct=d?d.pct:80;
+  const sl=document.getElementById('score-loading');
+  const sc=document.getElementById('score-content');
+  sl.style.display='block';
+  sc.style.display='none'; sc.style.opacity='0';
+  const bar=document.getElementById('sl-bar-fill');
+  const stageEl=document.getElementById('sl-stage');
+  const pctEl=document.getElementById('sl-pct-big');
+  bar.style.transition='none'; bar.style.width='0'; pctEl.textContent='0%';
+  const stages=['Собираем данные по нише...','Анализируем 847 кейсов Hugency Academy...','Считаем потенциал внедрения ИИ-контента...','Готовим персональный план роста...','Анализ завершён ✓'];
+  const p1=Math.round(targetPct*.22),p2=Math.round(targetPct*.52),p3=Math.round(targetPct*.82);
+  setTimeout(()=>{stageEl.textContent=stages[0];bar.style.transition='width 2.2s ease';bar.style.width='20%';animNum('sl-pct-big',0,p1,'%',2200);},300);
+  setTimeout(()=>{stageEl.textContent=stages[1];bar.style.transition='width 2.5s ease';bar.style.width='48%';animNum('sl-pct-big',p1,p2,'%',2500);},2800);
+  setTimeout(()=>{stageEl.textContent=stages[2];bar.style.transition='width 2.2s ease';bar.style.width='76%';animNum('sl-pct-big',p2,p3,'%',2200);},5600);
+  setTimeout(()=>{stageEl.textContent=stages[3];bar.style.transition='width 1.8s ease';bar.style.width='100%';animNum('sl-pct-big',p3,targetPct,'%',1800);},8000);
+  setTimeout(()=>{stageEl.textContent=stages[4];},9900);
+  setTimeout(()=>{
+    sl.style.display='none';
+    sc.style.display='block';
+    sc.style.transition='opacity .6s ease';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{sc.style.opacity='1';}));
+    fillScore();
+  },10600);
+  updateBack();
+}
+
+function goForm(){
+  hist.push(currentStep());
+  showStep('s-form');
+  fillForm();
+  updProg(14,14);
+  updateBack();
+}
+
+function goBack(){
+  if(hist.length===0) return;
+  const prev=hist.pop();
+  showStep(prev);
+  updateBack();
+  const m={'s1':1,'s2':2,'s14':3,'s3':5,'s4':6,'s5':7,'s9':8,'s10':9,'s7':10,'s8':11,'s12':12,'s13':13};
+  const n=m[prev]; if(n) updProg(n,14);
+}
+
+function updateBack(){
+  document.getElementById('back-btn').classList.toggle('vis', hist.length>0);
+}
+
+function currentStep(){
+  const a=document.querySelector('.step.on');
+  return a?a.id:null;
+}
+
+function showScr(id){
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showStep(id){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+  const el=document.getElementById(id);
+  if(el) el.classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function updProg(n,total){
+  const fts={1:12,2:23,3:34,4:43,5:51,6:58,7:63,8:68,9:72,10:76,11:80,12:84,13:88};
+  const pct=(total===13&&fts[n])?fts[n]:Math.round(n/total*100);
+  document.getElementById('pfill').style.width=pct+'%';
+  document.getElementById('pcnt').textContent=n+' / '+total;
+}
+
+// ─── AI SCALE ────────────────────────────────────
+const AI_SCALE_DESC=['','Только слышал(а) об ИИ — ещё не пробовал(а)','Пробовал(а) ChatGPT пару раз, основы понятны','Использую регулярно — есть рабочие промты и инструменты','Уверенный пользователь: знаю несколько ИИ-инструментов','Продвинутый — строю AI-воронки и автоматизации'];
+function pickScale(btn,val){
+  document.querySelectorAll('.ai-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  A.ai_level=val;
+  document.getElementById('ai-scale-desc').textContent=AI_SCALE_DESC[val];
+  const nb=document.getElementById('n14');if(nb)nb.disabled=false;
+}
+
+// ─── OPTION SELECT ────────────────────────────────
+function sel(el,key,val){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  A[key]=val;
+  const m={status:'n1',rev_now:'n3',rev_goal:'n4',goal:'n5',time_week:'n12',learn_style:'n13'};
+  if(m[key]){const b=document.getElementById(m[key]);if(b)b.disabled=false;}
+}
+
+let _insNext=null;
+function selAuto(el,key,val,insightText,nextFn){
+  const opts=el.closest('.opts');
+  opts.querySelectorAll('.opt').forEach(o=>{o.classList.remove('sel');o.style.pointerEvents='none';});
+  el.classList.add('sel');
+  A[key]=val;
+  _insNext=nextFn;
+  document.getElementById('ins-modal-txt').textContent=insightText;
+  document.getElementById('ins-modal').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeInsModal(){
+  document.getElementById('ins-modal').classList.remove('on');
+  document.body.style.overflow='';
+  if(_insNext){const f=_insNext;_insNext=null;f();}
+}
+
+function tog(el,key,val){
+  el.classList.toggle('sel');
+  if(!MA[key])MA[key]=[];
+  const i=MA[key].indexOf(val);
+  if(i>=0)MA[key].splice(i,1);else MA[key].push(val);
+}
+
+// ─── CONFIRM SCREEN ──────────────────────────────
+function goConfirm(){
+  hist.push(currentStep());
+  fillConfirm();
+  showStep('s-confirm');
+  updateBack();
+}
+function fillConfirm(){
+  const nicheMap={};NICHES.forEach(n=>nicheMap[n.id]=n.n);
+  const statusMap={referral:'На сарафане — нестабильно',ads:'Запускаем рекламу',no_system:'Ведём соцсети без системы',scale:'Клиенты есть — хочу больше'};
+  const revMap={'lt100':'До 100 000 ₽/мес','100-300':'100–300 000 ₽/мес','300-700':'300–700 000 ₽/мес','700-2m':'700 000 – 2 000 000 ₽/мес','2m+':'Больше 2 000 000 ₽/мес'};
+  const goalRevMap={'300-700':'300–700 000 ₽/мес','700-2m':'700 000 – 2 000 000 ₽/мес','2-5m':'2 000 000 – 5 000 000 ₽/мес','5m+':'Больше 5 000 000 ₽/мес'};
+  const rows=[
+    ['Ниша бизнеса', nicheMap[NID]||'—'],
+    ['Привлечение клиентов', statusMap[A.status]||'—'],
+    ['Выручка сейчас', revMap[A.rev_now]||'—'],
+    ['Цель выручки', goalRevMap[A.rev_goal]||'—'],
+  ];
+  document.getElementById('confirm-box').innerHTML=rows.map(([l,v])=>
+    `<div class="conf-row"><span class="conf-lbl">${l}</span><span class="conf-val">${v}</span></div>`
+  ).join('');
+}
+// ─── SCALE ───────────────────────────────────────
+function pickTimeScale(n){
+  document.querySelectorAll('.scale-btn').forEach((b,i)=>b.classList.toggle('sel',i+1===n));
+  A.content_time=n;
+  document.getElementById('n10').disabled=false;
+}
+// ─── INSIGHT ─────────────────────────────────────
+function goInsight(){
+  hist.push(currentStep());
+  showStep('s-insight');
+  updateBack();
+}
+// ─── NICHE ───────────────────────────────────────
+function pickNiche(card,id){
+  document.querySelectorAll('.nc').forEach(c=>c.classList.remove('sel'));
+  card.classList.add('sel');
+  NID=id; A.niche=id;
+  document.getElementById('n2').disabled=false;
+}
+
+function onNicheNext(){
+  if(!NID) return;
+  openModal(NID);
+}
+
+const VID_MAP={beauty:'beauty.mp4',restaurant:'restaurant.mp4',fitness:'fitness.mp4',shop:'shop.mp4',design:'disign.mp4',medical:'medical.mp4',education:'education.mp4',travel:'travel.mp4',other:'intro.mp4'};
+
+function openModal(id){
+  const n=NICHES.find(x=>x.id===id);
+  const d=ND[id];
+  if(!n||!d) return;
+  document.getElementById('m-name').textContent=n.n;
+  document.getElementById('m-hook').textContent=d.hook;
+  document.getElementById('m-v').textContent=d.v;
+  document.getElementById('m-l').textContent=d.l;
+  document.getElementById('m-s').textContent=d.s;
+  document.getElementById('m-ttl').textContent=d.ttl;
+  document.getElementById('m-earn').textContent=d.earn+' к выручке';
+  const mv=document.getElementById('m-vid');
+  const vsrc=VID_MAP[id]||'';
+  if(vsrc){mv.src=vsrc;mv.play().catch(()=>{});}
+  document.getElementById('modal').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('modal').classList.remove('on');
+  document.body.style.overflow='';
+  const mv=document.getElementById('m-vid');
+  mv.pause(); mv.removeAttribute('src'); mv.load();
+  goAnalyzing();
+}
+
+// ─── WARMUPS ─────────────────────────────────────
+function fillWu(n){
+  if(!NID) return;
+  const d=ND[NID];
+  const niche=NICHES.find(x=>x.id===NID);
+  if(!d||!niche) return;
+  const lbl=niche.n;
+  const gen=niche.gen||lbl;
+  if(n===1){
+    document.getElementById('wu1-n').textContent=gen;
+    document.getElementById('wu1-x').textContent=d.wu1x;
+    document.getElementById('wu1-desc').textContent=`Протестировали с реальными предпринимателями в сфере «${lbl}» — вот результат:`;
+    document.getElementById('wu1-task').textContent=d.wu1task;
+    document.getElementById('wu1-before').textContent=d.wu1before;
+    document.getElementById('wu1-after').textContent=d.wu1after;
+    const ul=document.getElementById('wu1-insight');
+    ul.innerHTML='';
+    (d.wu1insight||[]).forEach(txt=>{const li=document.createElement('li');li.textContent=txt;ul.appendChild(li);});
+    updProg(4,14);
+  } else {
+    document.getElementById('wu2-n').textContent=`«${lbl}»`;
+    document.getElementById('wu2-av').textContent=d.wu2.av;
+    document.getElementById('wu2-nm').textContent=d.wu2.nm;
+    document.getElementById('wu2-r').textContent=d.wu2.r;
+    document.getElementById('wu2-t').textContent=d.wu2.t;
+    updProg(7,14);
+  }
+}
+
+// ─── NICHE TEXT (Step 6) ─────────────────────────
+function setTag(val){
+  document.getElementById('niche-text').value=val;
+  nicheText=val; A.nicheText=val;
+  document.getElementById('n6').disabled=false;
+}
+
+function chkNiche(){
+  nicheText=document.getElementById('niche-text').value.trim();
+  A.nicheText=nicheText;
+  document.getElementById('n6').disabled=!nicheText;
+}
+
+// ─── CONTENT STEP ────────────────────────────────
+function fillContent(){
+  if(!NID) return;
+  const d=ND[NID];
+  const niche=NICHES.find(x=>x.id===NID);
+  if(!d) return;
+  const label=nicheText||(niche?niche.n:'');
+  document.getElementById('s7-niche').textContent=label;
+  document.getElementById('s7-earn').textContent=d.earn;
+  const list=document.getElementById('s7-list');
+  list.innerHTML='';
+  d.ex.forEach(e=>{
+    const el=document.createElement('div');
+    el.className='ce';
+    el.innerHTML=`<span class="ce-type">${e.tp}</span><span class="ce-txt">${e.tx}</span><span class="ce-v">👁 ${e.v}</span>`;
+    list.appendChild(el);
+  });
+}
+
+// ─── SCORE ───────────────────────────────────────
+function fillScore(){
+  const d=NID?ND[NID]:null;
+  const pct=d?d.pct:80;
+  const circ=339;
+  const offset=circ-(circ*pct/100);
+  const ring=document.getElementById('score-ring');
+  setTimeout(()=>{
+    ring.style.strokeDashoffset=offset;
+    animNum('score-pct',0,pct,'%',2600);
+  },100);
+  const niche=NID?NICHES.find(x=>x.id===NID):null;
+  const label=nicheText||(niche?niche.n:'твой бизнес');
+  const cases=Math.floor(Math.random()*81)+50;
+  document.getElementById('score-title').textContent=`Потенциал «${label}» — реальные цифры`;
+  document.getElementById('score-sub').textContent=`Мы проанализировали ${cases} кейсов академии Хуги и на основе этого можем сказать — потенциал внедрения ИИ-контента в эту нишу очень хороший.`;
+  const tags=document.getElementById('score-tags');
+  tags.innerHTML='';
+  (d?d.tags:['ИИ + бизнес']).forEach(t=>{
+    const span=document.createElement('span');
+    span.className='score-tag';
+    span.textContent=t;
+    tags.appendChild(span);
+  });
+}
+
+function animNum(id,from,to,suffix,dur){
+  const el=document.getElementById(id);
+  const start=performance.now();
+  function step(now){
+    const t=Math.min((now-start)/dur,1);
+    const ease=1-Math.pow(1-t,3);
+    el.textContent=Math.round(from+(to-from)*ease)+suffix;
+    if(t<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// ─── FORM ────────────────────────────────────────
+function fillForm(){
+  const niche=NID?NICHES.find(x=>x.id===NID):null;
+  const label=nicheText||(niche?niche.n:'');
+  const el=document.getElementById('f-niche');
+  if(el) el.textContent=label;
+}
+
+function chkForm(){
+  const n=document.getElementById('f-name').value.trim();
+  const c=document.getElementById('f-contact').value.trim();
+  document.getElementById('f-btn').disabled=!(n&&c);
+}
+
+function submitAndScore(){
+  const name=document.getElementById('f-name').value.trim();
+  const contact=document.getElementById('f-contact').value.trim();
+  const niche=NID?NICHES.find(x=>x.id===NID):null;
+  const label=nicheText||(niche?niche.n:'');
+  fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,contact,niche:label,type:'entrepreneur',answers:A,multi:MA})}).catch(()=>{});
+  const t=document.getElementById('ty-niche');
+  if(t) t.textContent=label;
+  goScore();
+}
+
+// ─── TIMER ───────────────────────────────────────
+function startTimer(){
+  let s=86387;
+  const el=document.getElementById('timer');
+  timerI=setInterval(()=>{
+    if(s<=0){clearInterval(timerI);return;}
+    s--;
+    const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;
+    el.textContent=pad(h)+':'+pad(m)+':'+pad(sec);
+  },1000);
+}
+function pad(n){return n<10?'0'+n:n}
+
+function showDownsell(){
+  document.getElementById('ty-skip').style.display='none';
+  const niche=NID?NICHES.find(x=>x.id===NID):null;
+  const label=nicheText||(niche?niche.n:'');
+  const ds=document.getElementById('ds-niche');
+  if(ds) ds.textContent=label;
+  document.getElementById('downsell-block').style.display='block';
+}
+function showFinalSkip(){
+  document.getElementById('downsell-block').style.display='none';
+  document.getElementById('skip-msg').style.display='block';
+}
+
+// ─── STARS ───────────────────────────────────────
+function initStars(){
+  const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+  let W,H,st=[];
+  function rs(){
+    W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;
+    st=Array.from({length:110},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*.7+.15,o:Math.random()*.55+.15,s:Math.random()*.3+.04}));
+  }
+  function dr(){
+    ctx.clearRect(0,0,W,H);
+    st.forEach(s=>{s.o+=Math.sin(Date.now()/1000*s.s)*.007;s.o=Math.max(.08,Math.min(.75,s.o));ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${s.o})`;ctx.fill()});
+    requestAnimationFrame(dr);
+  }
+  rs();window.addEventListener('resize',rs);dr();
+}
+</script>
+</body>
+</html>
+
