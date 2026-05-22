@@ -23,12 +23,9 @@ module.exports = async function handler(req, res) {
     const steps = STEPS[quiz];
     // Build all keys
     const keys = steps.map(s => `funnel:${quiz}:${s}`);
-    // Batch MGET
-    const body = JSON.stringify(keys);
-    const resp = await fetch(`${kvUrl}/mget`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${kvToken}`, 'Content-Type': 'application/json' },
-      body,
+    // Batch MGET — Upstash REST requires keys in the URL path
+    const resp = await fetch(`${kvUrl}/mget/${keys.map(k => encodeURIComponent(k)).join('/')}`, {
+      headers: { Authorization: `Bearer ${kvToken}` },
     });
     const data = await resp.json();
     const values = data.result || [];
