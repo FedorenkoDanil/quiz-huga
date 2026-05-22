@@ -1074,7 +1074,7 @@ function showStep(id){
   const el=document.getElementById(id);
   if(el) el.classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
-  if(id&&!id.startsWith('s-')) track(id); else if(id==='s-form') track('form');
+  if(id&&!id.startsWith('s-')) track(id);
 }
 
 function updProg(n,total){

@@ -8,7 +8,24 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0f0f14;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:24px;min-height:100vh}
 h1{font-size:22px;font-weight:700;margin-bottom:8px;color:#fff}
-.sub{font-size:13px;color:#64748b;margin-bottom:32px}
+.sub{font-size:13px;color:#64748b;margin-bottom:20px}
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.date-group{display:flex;align-items:center;gap:8px}
+.date-group label{font-size:12px;color:#94a3b8}
+input[type=date]{background:#1a1a2e;border:1px solid rgba(255,255,255,.12);color:#e2e8f0;padding:5px 10px;border-radius:8px;font-size:12px;cursor:pointer}
+input[type=date]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.5}
+.btn{padding:6px 14px;border-radius:8px;cursor:pointer;font-size:12px;border:1px solid}
+.btn-apply{background:rgba(124,58,237,.15);border-color:rgba(124,58,237,.3);color:#a78bfa}
+.btn-apply:hover{background:rgba(124,58,237,.25)}
+.btn-all{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:#94a3b8}
+.btn-all:hover{background:rgba(255,255,255,.1)}
+.btn-today{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.25);color:#34d399}
+.btn-today:hover{background:rgba(16,185,129,.15)}
+.btn-week{background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.25);color:#60a5fa}
+.btn-week:hover{background:rgba(59,130,246,.15)}
+.btn-reset{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:#f87171;margin-left:auto}
+.btn-reset:hover{background:rgba(239,68,68,.2)}
+.period-label{font-size:12px;color:#64748b;padding:4px 0}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
 .card{background:#1a1a2e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px}
 .card-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#a78bfa;margin-bottom:16px}
@@ -23,14 +40,51 @@ h1{font-size:22px;font-weight:700;margin-bottom:8px;color:#fff}
 .divider{border:none;border-top:1px solid rgba(255,255,255,.06);margin:10px 0}
 .loading{text-align:center;color:#64748b;font-size:14px;padding:60px}
 .err{color:#f87171;font-size:13px;text-align:center;padding:40px}
-.refresh{background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);color:#a78bfa;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:12px;float:right}
-.refresh:hover{background:rgba(124,58,237,.25)}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:#1a1a2e;border:1px solid rgba(239,68,68,.3);border-radius:16px;padding:28px;max-width:340px;width:90%;text-align:center}
+.modal h2{font-size:17px;font-weight:700;margin-bottom:10px}
+.modal p{font-size:13px;color:#94a3b8;margin-bottom:20px}
+.modal-btns{display:flex;gap:10px;justify-content:center}
+.btn-cancel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#e2e8f0;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px}
+.btn-confirm{background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.4);color:#f87171;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700}
+.btn-confirm:hover{background:rgba(239,68,68,.35)}
 </style>
 </head>
 <body>
-<h1>Аналитика квизов <button class="refresh" onclick="load()">Обновить</button></h1>
+<h1>Аналитика квизов</h1>
 <p class="sub">Воронка прохождения · обновляется в реальном времени</p>
+
+<div class="toolbar">
+  <button class="btn btn-today" onclick="setToday()">Сегодня</button>
+  <button class="btn btn-week"  onclick="setWeek()">7 дней</button>
+  <button class="btn btn-all"   onclick="setAll()">Всё время</button>
+
+  <div class="date-group">
+    <label>с</label>
+    <input type="date" id="from" onchange="onDateChange()">
+    <label>по</label>
+    <input type="date" id="to"   onchange="onDateChange()">
+  </div>
+
+  <button class="btn btn-apply"  onclick="load()">Обновить</button>
+  <button class="btn btn-reset"  onclick="showReset()">Сбросить данные</button>
+</div>
+
+<div id="period-label" class="period-label"></div>
 <div id="root"><p class="loading">Загрузка...</p></div>
+
+<!-- Reset confirm modal -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h2>Сбросить все данные?</h2>
+    <p>Все счётчики воронки будут удалены. Это действие нельзя отменить.</p>
+    <div class="modal-btns">
+      <button class="btn-cancel"  onclick="hideReset()">Отмена</button>
+      <button class="btn-confirm" onclick="doReset()">Да, сбросить</button>
+    </div>
+  </div>
+</div>
 
 <script>
 const LABELS = {
@@ -48,29 +102,45 @@ const QUIZ_NAMES = {
 };
 const KEY_STEPS = ['form','lead','score','cta','downsell'];
 
-function bar(val, max, cls='') {
-  const pct = max > 0 ? Math.round(val / max * 100) : 0;
-  const w = max > 0 ? (val / max * 100).toFixed(1) : 0;
-  return `<div class="row">
-    <span class="label">${''}</span>
-    <div class="bar-wrap"><div class="bar ${cls}" style="width:${w}%"></div></div>
-    <span class="count">${val}</span>
-    <span class="pct">${pct}%</span>
-  </div>`;
+function today() { return new Date().toISOString().slice(0,10); }
+function daysAgo(n) {
+  const d = new Date(); d.setDate(d.getDate()-n);
+  return d.toISOString().slice(0,10);
+}
+
+let mode = 'all'; // 'all' | 'range'
+
+function setToday() {
+  const t = today();
+  document.getElementById('from').value = t;
+  document.getElementById('to').value   = t;
+  mode = 'range'; load();
+}
+function setWeek() {
+  document.getElementById('from').value = daysAgo(6);
+  document.getElementById('to').value   = today();
+  mode = 'range'; load();
+}
+function setAll() {
+  document.getElementById('from').value = '';
+  document.getElementById('to').value   = '';
+  mode = 'all'; load();
+}
+function onDateChange() {
+  const f = document.getElementById('from').value;
+  const t = document.getElementById('to').value;
+  mode = (f && t) ? 'range' : 'all';
 }
 
 function renderQuiz(name, data) {
   const start = data.start || 0;
-  const keys = Object.keys(data);
   let html = `<div class="card"><div class="card-title">${QUIZ_NAMES[name] || name}</div>`;
-
-  keys.forEach(k => {
+  Object.keys(data).forEach(k => {
     if (!LABELS[k]) return;
     const v = data[k];
-    const isKey = KEY_STEPS.includes(k);
     const cls = k === 'lead' ? 'green' : k === 'cta' || k === 'downsell' ? 'rose' : '';
     const pct = start > 0 ? Math.round(v / start * 100) : 0;
-    const w = start > 0 ? (v / start * 100).toFixed(1) : 0;
+    const w   = start > 0 ? (v / start * 100).toFixed(1) : 0;
     if (k === 'form') html += `<hr class="divider">`;
     html += `<div class="row">
       <span class="label">${LABELS[k]}</span>
@@ -79,7 +149,6 @@ function renderQuiz(name, data) {
       <span class="pct">${start > 0 ? pct+'%' : '—'}</span>
     </div>`;
   });
-
   html += '</div>';
   return html;
 }
@@ -87,24 +156,52 @@ function renderQuiz(name, data) {
 async function load() {
   const root = document.getElementById('root');
   root.innerHTML = '<p class="loading">Загрузка...</p>';
+
+  const from = document.getElementById('from').value;
+  const to   = document.getElementById('to').value;
+  const lbl  = document.getElementById('period-label');
+
+  let url = '/api/stats';
+  if (mode === 'range' && from && to) {
+    url += `?from=${from}&to=${to}`;
+    lbl.textContent = from === to ? `Данные за ${from}` : `Данные с ${from} по ${to}`;
+  } else {
+    lbl.textContent = 'Данные за всё время';
+  }
+
   try {
-    const r = await fetch('/api/stats');
+    const r = await fetch(url);
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const data = await r.json();
     if (data.error) throw new Error(data.error);
     let html = '<div class="grid">';
-    for (const [quiz, steps] of Object.entries(data)) {
-      html += renderQuiz(quiz, steps);
-    }
+    for (const [quiz, steps] of Object.entries(data)) html += renderQuiz(quiz, steps);
     html += '</div>';
     root.innerHTML = html;
   } catch(e) {
-    root.innerHTML = `<p class="err">Ошибка: ${e.message}<br><br>Убедись что Vercel KV подключён (см. инструкцию ниже).</p>`;
+    root.innerHTML = `<p class="err">Ошибка: ${e.message}</p>`;
   }
 }
 
+function showReset() { document.getElementById('modal').classList.add('show'); }
+function hideReset() { document.getElementById('modal').classList.remove('show'); }
+
+async function doReset() {
+  hideReset();
+  document.getElementById('root').innerHTML = '<p class="loading">Сбрасываем данные...</p>';
+  try {
+    const r = await fetch('/api/reset', { method: 'POST' });
+    const d = await r.json();
+    console.log('Reset:', d);
+    await load();
+  } catch(e) {
+    document.getElementById('root').innerHTML = `<p class="err">Ошибка сброса: ${e.message}</p>`;
+  }
+}
+
+// Init: set "all time" view
 load();
-setInterval(load, 60000); // auto-refresh every minute
+setInterval(load, 60000);
 </script>
 </body>
 </html>

@@ -16,11 +16,18 @@ module.exports = async function handler(req, res) {
   const kvToken = process.env.KV_REST_API_TOKEN;
   if (!kvUrl || !kvToken) return res.status(500).json({ error: 'KV not configured' });
 
+  const auth = { Authorization: `Bearer ${kvToken}` };
+  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+  // Total counter
   const key = `funnel:${quiz}:${event}`;
-  await fetch(`${kvUrl}/incr/${encodeURIComponent(key)}`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${kvToken}` },
-  });
+  // Daily counter
+  const dayKey = `funneld:${quiz}:${event}:${today}`;
+
+  await Promise.all([
+    fetch(`${kvUrl}/incr/${encodeURIComponent(key)}`,    { method: 'POST', headers: auth }),
+    fetch(`${kvUrl}/incr/${encodeURIComponent(dayKey)}`, { method: 'POST', headers: auth }),
+  ]);
 
   return res.status(200).json({ ok: true });
 };
