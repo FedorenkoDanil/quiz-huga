@@ -69,7 +69,7 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;font-siz
 
 /* opts */
 .opts{display:flex;flex-direction:column;gap:9px;margin-bottom:20px}
-.opt{display:flex;align-items:center;gap:13px;padding:14px 16px;background:var(--card);border:1.5px solid rgba(255,255,255,.07);border-radius:var(--r2);cursor:pointer;transition:border-color .18s,background .18s,transform .12s;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.opt{display:flex;align-items:center;gap:13px;padding:14px 16px;background:var(--card);border:1.5px solid rgba(255,255,255,.07);border-radius:var(--r2);cursor:pointer;transition:border-color .18s,background .18s,transform .12s;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
 .opt::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,40,106,.06),rgba(139,92,246,.04));opacity:0;transition:opacity .18s}
 .opt:hover{border-color:rgba(212,40,106,.38);transform:translateX(3px)}
 .opt:hover::before{opacity:1}
@@ -1067,7 +1067,7 @@ function showScr(id){
 }
 
 function track(event){
-  try{navigator.sendBeacon('/api/track',JSON.stringify({quiz:'entrepreneur-landing',event}));}catch(e){}
+  try{navigator.sendBeacon('/api/track',new Blob([JSON.stringify({quiz:'entrepreneur-landing',event})],{type:'application/json'}));}catch(e){}
 }
 function showStep(id){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
